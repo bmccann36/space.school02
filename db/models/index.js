@@ -9,9 +9,13 @@
 const Student = require('./students')
 const Campus = require('./campuses')
 
-Campus.belongsToMany(Student, {through: 'enrolledStudent'})
+Student.belongsTo(Campus)
+
+// Activity.belongsTo(Place);
+// Campus.belongsToMany(Student, {through: 'enrolledStudent'})
 // Project.belongsToMany(User, {through: 'UserProject'});
 module.exports = { Student, Campus }
 
 
 ////
+/////

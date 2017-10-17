@@ -7,30 +7,54 @@ const Campus = models.Campus
 const Student = models.Student
 
 
-// return all campuses
+// GET all campuses
 router.get('/', (req, res, next) => {
   Campus.findAll()
   .then(campuses => res.json(campuses))
   .catch(next)
 })
 
-
-// return a single campus by i
-
-
-
-// PENDING find all students who belongs to a campus
+//  find all students who belongs to a campus
 // full route - - localhost:1337/api/campuses/<id>
-router.get('/:campusId', (req, res, next) => {
-  Campus.findById(req.params.campusId, {include: [Student]})
-  .then(campus => {
-    // console.log(campus[0].students)
-    res.json(campus)
+// return all students whose campusId is < ?>
+router.get('/:campusId/students', (req, res, next) => {
+  Student.findAll({
+    where: { campusId: 1 }
   })
-
+  .then(student => {res.send(student)})
 })
 
-// I need to add some stuff here
+
+// GET a single campus by id
+router.get('/:campusId', (req, res, next) => {
+  Campus.findById(req.params.campusId)
+  .then(campus => res.json(campus))
+})
 
 
-//  delte a campus
+//POST a new campus
+router.post('/add',  (req, res, next) => {
+  Campus.create({
+      name: req.body.name,
+      image: req.body.image,
+  })
+  .then(campus => res.json(campus))
+})
+
+// PUT update campus info for one
+router.put('/:campusId/edit', (req, res, next) => {
+  Campus.findById(req.params.campusId)
+  .then(campus => {
+    campus.update(req.body)
+    res.json(campus)
+   })
+})
+
+// DELETE a campus
+router.delete('/:campusId/delete', (req, res, next) => {
+  // res.send('here')
+  Campus.findById(req.params.campusId)
+  .then(campus => {
+    res.send(campus.destroy())
+  })
+})

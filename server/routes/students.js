@@ -4,6 +4,8 @@ const router = new express.Router();
 module.exports = router;   // this is key ****
 const models = require('../../db/models')
 const Student = models.Student
+const Campus = models.Campus
+
 // router.get('/', (req, res) => res.send('you got the students route'))
 
 
@@ -33,8 +35,13 @@ router.get('/:studentId', (req, res, next) => {
 })
 
 
-// PENDING find a student and see the campus they are associated with
-
+// INCLUDE!! find a student and see the campus they are associated with
+router.get('/:studentId/campus', (req, res, next) => {
+  Student.findById(req.params.studentId, {include: [Campus]})
+  .then(student => {
+    res.json(student)
+  })
+})
 
 // POST add new student
 router.post('/add',  (req, res, next) => {
@@ -42,7 +49,9 @@ router.post('/add',  (req, res, next) => {
   Student.create({
       name: req.body.name,
       email: req.body.email,
-      gpa: req.body.gpa
+      gpa: req.body.gpa,
+      campusId: req.body.campusId
+
   })
   .then(student => {res.json(student)})
   // res.send('comin back')
