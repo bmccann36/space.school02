@@ -15,8 +15,6 @@ export default class AppContainer extends Component {
     super()
     }
 
-
-
   render(){
     return (
       <BrowserRouter>
@@ -25,10 +23,7 @@ export default class AppContainer extends Component {
         <div className= "campus-container">
           <Route exact path= "/" component= {CampusContainer} />
 
-          <Route exact path="/students" render={() => <StudentsContainer
-          allStudents = {this.state.allStudents}
-          campuses = {this.state.campuses} />}
-           />
+          <Route exact path="/students" component={StudentsContainer} />
         </div>
       </div>
         </BrowserRouter>
@@ -51,3 +46,6 @@ export default class AppContainer extends Component {
     /> */
 
 
+// props that were passed to students container
+          {/* allStudents = {this.state.allStudents}
+          campuses = {this.state.campuses} />} */}

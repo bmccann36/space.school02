@@ -4,7 +4,9 @@ import axios from 'axios';
 export default class AddPerson extends Component {
   constructor(props) {
     super(props)
-    this.state = { name: '', email: '', gpa: 0, campus: 0 }
+    this.state = { name: '', email: '', gpa: 0, campus: 0,
+    campuses: []
+  }
     this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -16,18 +18,20 @@ export default class AddPerson extends Component {
       gpa: event.target.gpa.value,
       campusId: event.target.campus.value
     }
-
     this.props.addStudent(payload)
-    // axios.post( '/api/students/add', payload )
-    //   .then(res => res.data)
-    //   .then(newEntry => console.log(newEntry))
-    // this.setState({name: '', email: '', gpa: 0})
   }
 
+  componentDidMount(){
+  axios.get('/api/campuses')
+  .then(res => res.data)
+  .then(campuses => {
+    this.setState({campuses})
+  })
+  }
 
   render() {
-    console.log(this.props.campuses, 'in add person')
-const campusNames = this.props.campuses.map(campus => {
+    // console.log(this.props.campuses, 'in add person')
+const campusNames = this.state.campuses.map(campus => {
   return <option key={campus.id} value={campus.id} > {campus.name} </option>
 })
     return (

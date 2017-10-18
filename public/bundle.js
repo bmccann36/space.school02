@@ -31769,7 +31769,9 @@ var AddPerson = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (AddPerson.__proto__ || Object.getPrototypeOf(AddPerson)).call(this, props));
 
-    _this.state = { name: '', email: '', gpa: 0, campus: 0 };
+    _this.state = { name: '', email: '', gpa: 0, campus: 0,
+      campuses: []
+    };
     _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
@@ -31784,18 +31786,24 @@ var AddPerson = function (_Component) {
         gpa: event.target.gpa.value,
         campusId: event.target.campus.value
       };
-
       this.props.addStudent(payload);
-      // axios.post( '/api/students/add', payload )
-      //   .then(res => res.data)
-      //   .then(newEntry => console.log(newEntry))
-      // this.setState({name: '', email: '', gpa: 0})
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get('/api/campuses').then(function (res) {
+        return res.data;
+      }).then(function (campuses) {
+        _this2.setState({ campuses: campuses });
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.campuses, 'in add person');
-      var campusNames = this.props.campuses.map(function (campus) {
+      // console.log(this.props.campuses, 'in add person')
+      var campusNames = this.state.campuses.map(function (campus) {
         return _react2.default.createElement(
           'option',
           { key: campus.id, value: campus.id },
@@ -31909,8 +31917,6 @@ var AppContainer = function (_Component) {
   _createClass(AppContainer, [{
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         _reactRouterDom.BrowserRouter,
         null,
@@ -31922,12 +31928,7 @@ var AppContainer = function (_Component) {
             'div',
             { className: 'campus-container' },
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', render: function render() {
-                return _react2.default.createElement(_StudentsContainer2.default, {
-                  allStudents: _this2.state.allStudents,
-                  campuses: _this2.state.campuses });
-              }
-            })
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', component: _StudentsContainer2.default })
           )
         )
       );
@@ -31948,8 +31949,12 @@ students= {this.state.allStudents}
 campuses= {this.state.campuses}
 /> */
 
+// props that were passed to students container
+
 
 exports.default = AppContainer;
+{/* allStudents = {this.state.allStudents}
+  campuses = {this.state.campuses} />} */}
 
 /***/ }),
 /* 316 */

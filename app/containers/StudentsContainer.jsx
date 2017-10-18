@@ -24,6 +24,8 @@ export default class StudentsContainer extends Component {
       .then(students => {
         this.setState({visibleStudents: students})
       })
+
+
     }
 
     addStudent(payload){
