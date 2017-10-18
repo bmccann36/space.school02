@@ -12836,15 +12836,6 @@ var _AppContainer2 = _interopRequireDefault(_AppContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import StudentsHome from './components/StudentsHome'
-// import Home from './components/Home'
-
-
-// add a path for the studentList view
-// /campus/:campusId/students   renders the student list component as well as the campuses component
-
-
-// import Root from './components/Root'
 (0, _reactDom.render)(_react2.default.createElement(
     _reactRedux.Provider,
     { store: _store2.default },
@@ -30535,7 +30526,71 @@ exports.default = Nav;
 
 /***/ }),
 /* 291 */,
-/* 292 */,
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StudentList = function (_Component) {
+  _inherits(StudentList, _Component);
+
+  function StudentList(props) {
+    _classCallCheck(this, StudentList);
+
+    return _possibleConstructorReturn(this, (StudentList.__proto__ || Object.getPrototypeOf(StudentList)).call(this, props));
+  }
+
+  _createClass(StudentList, [{
+    key: "render",
+    value: function render() {
+      // console.log(this.props.campuses)
+      var students = this.props.students;
+      return _react2.default.createElement(
+        "div",
+        { className: "student-list" },
+        _react2.default.createElement(
+          "h1",
+          null,
+          " student list component "
+        ),
+        students.map(function (student) {
+          return _react2.default.createElement(
+            "h1",
+            null,
+            " ",
+            student.name,
+            " "
+          );
+        })
+      );
+    }
+  }]);
+
+  return StudentList;
+}(_react.Component);
+
+exports.default = StudentList;
+
+/***/ }),
 /* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30551,30 +30606,31 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(40);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import { Link } from 'react-router-dom';
+
 
 function Campuses(props) {
   // console.log(props)
   // passing setCampus in here instead of using router so that we get a page refresh Link to is no longer needed I think
   return _react2.default.createElement(
-    'div',
-    { className: 'campuses' },
+    "div",
+    { className: "campuses" },
     props.campuses.map(function (campus) {
       return _react2.default.createElement(
-        'div',
-        { className: 'campus', onClick: function onClick() {
+        "div",
+        { className: "campus", key: campus.id, onClick: function onClick() {
             return props.setCampus(campus.id);
           } },
         _react2.default.createElement(
-          'h1',
+          "h1",
           null,
-          ' ',
+          " ",
           campus.name,
-          '  '
+          "  "
         ),
-        _react2.default.createElement('img', { src: 'https://pbs.twimg.com/profile_images/665505233859174400/kA0u43JI.jpg' })
+        _react2.default.createElement("img", { src: "https://pbs.twimg.com/profile_images/665505233859174400/kA0u43JI.jpg" })
       );
     })
   );
@@ -31484,64 +31540,58 @@ var StudentTable = function (_Component) {
   function StudentTable(props) {
     _classCallCheck(this, StudentTable);
 
-    var _this = _possibleConstructorReturn(this, (StudentTable.__proto__ || Object.getPrototypeOf(StudentTable)).call(this, props));
-
-    _this.state = { selectedStudent: {}, allStudents: [] };
-    _this.deleteStudent = _this.deleteStudent.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (StudentTable.__proto__ || Object.getPrototypeOf(StudentTable)).call(this, props));
+    // this.state = { selectedStudent: {},
+    //               allStudents: this.props.students
+    //               }
   }
 
   _createClass(StudentTable, [{
-    key: 'deleteStudent',
-    value: function deleteStudent(studentId) {
-      _axios2.default.delete('/api/students/' + studentId + '/delete').then(function (res) {
-        return res.data;
-      }).then(function (deleted) {
-        console.log(deleted);
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      // console.log(this.props)
+      // console.log('student table render ')
       var students = void 0;
       if (this.props.students) {
         students = this.props.students.map(function (student) {
           return _react2.default.createElement(
-            'tr',
+            'div',
             { key: student.id },
             _react2.default.createElement(
-              'td',
-              null,
-              ' ',
-              student.name,
-              ' '
-            ),
-            _react2.default.createElement(
-              'td',
-              null,
-              ' ',
-              student.email,
-              ' '
-            ),
-            _react2.default.createElement(
-              'td',
-              null,
-              ' ',
-              student.gpa,
-              ' '
-            ),
-            _react2.default.createElement(
-              'td',
+              'tr',
               null,
               _react2.default.createElement(
-                'button',
-                { onClick: function onClick() {
-                    return _this2.deleteStudent(student.id);
-                  } },
-                ' delete entry '
+                'td',
+                null,
+                ' ',
+                student.name,
+                ' '
+              ),
+              _react2.default.createElement(
+                'td',
+                null,
+                ' ',
+                student.email,
+                ' '
+              ),
+              _react2.default.createElement(
+                'td',
+                null,
+                ' ',
+                student.gpa,
+                ' '
+              ),
+              _react2.default.createElement(
+                'td',
+                null,
+                _react2.default.createElement(
+                  'button',
+                  { onClick: function onClick() {
+                      return _this2.props.deleteStudent(student.id);
+                    } },
+                  ' delete entry '
+                )
               )
             )
           );
@@ -31716,6 +31766,10 @@ var _Campuses = __webpack_require__(293);
 
 var _Campuses2 = _interopRequireDefault(_Campuses);
 
+var _StudentList = __webpack_require__(292);
+
+var _StudentList2 = _interopRequireDefault(_StudentList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31736,6 +31790,7 @@ var AppContainer = function (_Component) {
 
     _this.state = { campuses: [],
       selectedCampus: 0,
+      visibleStudents: [],
       allStudents: []
     };
     _this.changeSelected = _this.changeSelected.bind(_this);
@@ -31770,7 +31825,7 @@ var AppContainer = function (_Component) {
       _axios2.default.get('/api/campuses/' + campusId + '/students').then(function (res) {
         return res.data;
       }).then(function (list) {
-        _this3.setState({ allStudents: list });
+        _this3.setState({ visibleStudents: list });
       });
     }
   }, {
@@ -31778,7 +31833,8 @@ var AppContainer = function (_Component) {
     value: function render() {
       var _this4 = this;
 
-      var campusId = this.state.selectedCampus;
+      // const campusId = this.state.selectedCampus
+      // console.log(this.state.visibleStudents)
       return _react2.default.createElement(
         _reactRouterDom.BrowserRouter,
         null,
@@ -31789,9 +31845,15 @@ var AppContainer = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'campus-container' },
-            _react2.default.createElement(_Campuses2.default, {
-              campuses: this.state.campuses,
-              setCampus: this.changeSelected
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+                return _react2.default.createElement(_Campuses2.default, {
+                  campuses: _this4.state.campuses,
+                  setCampus: _this4.changeSelected });
+              }
+            }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+                return _react2.default.createElement(_StudentList2.default, { students: _this4.state.visibleStudents });
+              }
             }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', render: function render() {
                 return _react2.default.createElement(_StudentsContainer2.default, {
@@ -31808,10 +31870,12 @@ var AppContainer = function (_Component) {
   return AppContainer;
 }(_react.Component);
 
+// HOW TO USE RENDER + PASS PROPS
 /* <Route path= "/" render={() => <Campuses campuses={this.state.campuses}
 setCampus = {this.changeSelected}
  />} /> */
 
+// HOW I RENDERED STUDENT LIST
 /* <StudentList
 students= {this.state.allStudents}
 campuses= {this.state.campuses}
@@ -31874,29 +31938,50 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var StudentsContainer = function (_Component) {
   _inherits(StudentsContainer, _Component);
 
-  function StudentsContainer(props) {
+  function StudentsContainer() {
     _classCallCheck(this, StudentsContainer);
 
-    var _this = _possibleConstructorReturn(this, (StudentsContainer.__proto__ || Object.getPrototypeOf(StudentsContainer)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (StudentsContainer.__proto__ || Object.getPrototypeOf(StudentsContainer)).call(this));
 
     _this.state = {
-      selectedStudents: [],
-      showForm: false
+      showForm: false,
+      visibleStudents: []
     };
     _this.handleClick = _this.handleClick.bind(_this);
+    _this.deleteStudent = _this.deleteStudent.bind(_this);
     return _this;
   }
 
   _createClass(StudentsContainer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get('/api/students').then(function (res) {
+        return res.data;
+      }).then(function (students) {
+        _this2.setState({ visibleStudents: students });
+      });
+    }
+  }, {
+    key: 'deleteStudent',
+    value: function deleteStudent(studentId) {
+      var prevStuds = this.state.visibleStudents;
+      _axios2.default.delete('api/students/' + studentId + '/delete');
+      var currStuds = prevStuds.filter(function (student) {
+        return student.id !== studentId;
+      });
+
+      this.setState({ visibleStudents: currStuds });
+    }
+  }, {
     key: 'handleClick',
     value: function handleClick() {
       this.setState({ showForm: true });
-      // console.log(this.state.showForm)
     }
   }, {
     key: 'render',
     value: function render() {
-      // console.log(this.props, 'in students container')
       return _react2.default.createElement(
         'div',
         null,
@@ -31908,6 +31993,9 @@ var StudentsContainer = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'students-container' },
+          _react2.default.createElement(_StudentTable2.default, { students: this.state.visibleStudents,
+            deleteStudent: this.deleteStudent
+          }),
           this.state.showForm && _react2.default.createElement(_AddPerson2.default, { campuses: this.props.campuses })
         )
       );
@@ -31916,6 +32004,17 @@ var StudentsContainer = function (_Component) {
 
   return StudentsContainer;
 }(_react.Component);
+
+// .then(
+//   axios.get('/api/students')
+//   .then(res => res.data)
+//   .then(students => {
+//     this.setState({visibleStudents: students})
+//     this.forceUpdate()
+//     console.log(this.state.visibleStudents)
+//   })
+// )
+
 
 exports.default = StudentsContainer;
 

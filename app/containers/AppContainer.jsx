@@ -6,7 +6,7 @@ import axios from 'axios'
 import StudentsContainer from './StudentsContainer'
 import Nav from '../components/Nav'
 import Campuses from '../components/Campuses'
-
+import StudentList from '../components/StudentList'
 
 
 export default class AppContainer extends Component {
@@ -14,6 +14,7 @@ export default class AppContainer extends Component {
     super()
     this.state = { campuses: [],
                   selectedCampus: 0,
+                  visibleStudents: [],
                   allStudents: []
                   }
     this.changeSelected = this.changeSelected.bind(this)
@@ -27,9 +28,8 @@ export default class AppContainer extends Component {
     .then(res => res.map(r => r.data))
     .then(data => {
       this.setState({campuses: data[0], allStudents: data[1]})
-    });
+    })
 // data[0] is campuses  data[1] is students
-
   }
 
   // when the campus div is clicked it changes campus ID on state
@@ -37,31 +37,31 @@ export default class AppContainer extends Component {
     axios.get(`/api/campuses/${campusId}/students`)
     .then(res => res.data)
     .then(list => {
-      this.setState( {allStudents: list} )
+      this.setState( {visibleStudents: list} )
     })
   }
 
 
   render(){
-    const campusId = this.state.selectedCampus
+    // const campusId = this.state.selectedCampus
+    // console.log(this.state.visibleStudents)
     return (
       <BrowserRouter>
       <div>
       <Nav />
         <div className= "campus-container">
-          <Campuses
+          <Route exact path= "/" render={() => <Campuses
           campuses={this.state.campuses}
-          setCampus = {this.changeSelected}
+          setCampus = {this.changeSelected} />}
+          />
+          <Route exact path = "/" render={() => <StudentList students = {this.state.visibleStudents} />}
           />
           <Route exact path="/students" render={() => <StudentsContainer
           allStudents = {this.state.allStudents}
           campuses = {this.state.campuses} />}
            />
-
-
         </div>
-
-        </div>
+      </div>
         </BrowserRouter>
 
     )
@@ -69,14 +69,17 @@ export default class AppContainer extends Component {
 }
 }
 
+// HOW TO USE RENDER + PASS PROPS
     /* <Route path= "/" render={() => <Campuses campuses={this.state.campuses}
     setCampus = {this.changeSelected}
      />} /> */
 
-          /* <StudentList
-          students= {this.state.allStudents}
-          campuses= {this.state.campuses}
-          /> */
+
+// HOW I RENDERED STUDENT LIST
+    /* <StudentList
+    students= {this.state.allStudents}
+    campuses= {this.state.campuses}
+    /> */
   // axios request to load all campuses
 
   // on campus icon click react router gets triggered to show the studentList  view in addition to the campuses grid
