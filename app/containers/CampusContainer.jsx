@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import StudentListContainer from './StudentListContainer'
+import StudentList from '../components/StudentList'
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Campuses from '../components/Campuses'
 import axios from 'axios'
@@ -10,7 +10,8 @@ export default class CampusContainer extends Component {
   constructor() {
     super()
     this.state = { campuses: [],
-                  selectedCampus: 0
+                  selectedCampus: 0,
+                  allStudents: []
                   }
     this.changeSelected = this.changeSelected.bind(this)
   }
@@ -25,24 +26,29 @@ export default class CampusContainer extends Component {
 
   // when the campus div is clicked it changes campus ID on state
   changeSelected(campusId){
-    console.log('running')
-    this.setState({selectedCampus: campusId })
-    console.log(this.state.selectedCampus)
+    axios.get(`/api/campuses/${campusId}/students`)
+    .then(res => res.data)
+    .then(list => {
+      this.setState( {allStudents: list} )
+      console.log(this.state)
+    })
   }
 
 
   render(){
-    // let campusId = 2
+    const campusId = this.state.selectedCampus
     return (
-      <BrowserRouter>
+
         <div className= "campus-container">
-          <Route path= "/" render={() => <Campuses campuses={this.state.campuses}
+          <Campuses
+          campuses={this.state.campuses}
           setCampus = {this.changeSelected}
-          />} />
-          <Route exact path= '/campus/:campusId/students'
-          component={StudentListContainer} />
+          />
+          <StudentList
+          students= {this.state.allStudents}
+          />
         </div>
-      </BrowserRouter>
+
     )
 
 }
@@ -61,6 +67,9 @@ export default class CampusContainer extends Component {
   // uses this.props.routeParams.campusId to know what students to render
 
 
-
+// routing and passing props
+    {/* <Route path= "/" render={() => <Campuses campuses={this.state.campuses}
+    setCampus = {this.changeSelected}
+     />} /> */}
 
 

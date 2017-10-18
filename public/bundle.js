@@ -12828,10 +12828,6 @@ var _store = __webpack_require__(282);
 
 var _store2 = _interopRequireDefault(_store);
 
-var _Root = __webpack_require__(290);
-
-var _Root2 = _interopRequireDefault(_Root);
-
 var _Nav = __webpack_require__(291);
 
 var _Nav2 = _interopRequireDefault(_Nav);
@@ -12844,11 +12840,10 @@ var _StudentsHome = __webpack_require__(314);
 
 var _StudentsHome2 = _interopRequireDefault(_StudentsHome);
 
-var _Home = __webpack_require__(317);
-
-var _Home2 = _interopRequireDefault(_Home);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import Home from './components/Home'
+
 
 // add a path for the studentList view
 // /campus/:campusId/students   renders the student list component as well as the campuses component
@@ -12864,11 +12859,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
       'div',
       { className: 'main' },
       _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _Nav2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: '/', component: _CampusContainer2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', component: _StudentsHome2.default })
     )
   )
 ), document.getElementById('main'));
+
+// import Root from './components/Root'
 
 /***/ }),
 /* 123 */
@@ -30499,106 +30496,7 @@ thunk.withExtraArgument = createThunkMiddleware;
 exports['default'] = thunk;
 
 /***/ }),
-/* 290 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var WinterJokes = function (_Component) {
-  _inherits(WinterJokes, _Component);
-
-  function WinterJokes() {
-    _classCallCheck(this, WinterJokes);
-
-    var _this = _possibleConstructorReturn(this, (WinterJokes.__proto__ || Object.getPrototypeOf(WinterJokes)).call(this));
-
-    _this.nextJoke = _this.nextJoke.bind(_this);
-    _this.answer = _this.answer.bind(_this);
-    return _this;
-  }
-
-  _createClass(WinterJokes, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.nextJoke();
-    }
-  }, {
-    key: 'nextJoke',
-    value: function nextJoke() {
-      this.setState({
-        joke: randomJoke(),
-        answered: false
-      });
-    }
-  }, {
-    key: 'answer',
-    value: function answer() {
-      this.setState({ answered: true });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      if (!this.state) {
-        return null;
-      }
-
-      var _state = this.state,
-          joke = _state.joke,
-          answered = _state.answered;
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h1',
-          { onClick: answered ? this.nextJoke : this.answer },
-          joke.q
-        ),
-        answered && _react2.default.createElement(
-          'h2',
-          null,
-          joke.a
-        )
-      );
-    }
-  }]);
-
-  return WinterJokes;
-}(_react.Component);
-
-exports.default = WinterJokes;
-
-
-function randomJoke() {
-  return jokes[Math.floor(Math.random() * jokes.length)];
-}
-
-var jokes = 'Q: What did the Arctic wolf ask in the restaurant?\nA: Are these lemmings fresh off the tundra?\nQ: What did the big furry hat say to the warm woolly scarf?\nA: You hang around while I go on ahead.\nQ: What\'s the difference between an iceberg and a clothes brush?\nA: One crushes boats and the other brushes coats!\nQ: Why aren\'t penguins as lucky as Arctic murres?\nA: The poor old penguins can\'t go south for the winter. (they live in Antarctica)\nQ: How do you keep from getting cold feet?\nA: Don\'t go around BRRfooted!\nQ: Why is the slippery ice like music?\nA: If you don\'t C sharp - you\'ll B flat!\nQ: What\'s an ig?\nA: A snow house without a loo!\nQ: Where do seals go to see movies?\nA: The dive-in!\nQ: What kind of math do Snowy Owls like?\nA: Owlgebra.\nQ: What did the ocean say to the bergy bits?\nA: Nothing. It just waved.\nQ: What sits on the bottom of the cold Arctic Ocean and shakes?\nA: A nervous wreck.\nQ: How do you know if there\'s a snowman in your bed?\nA: You wake up wet!\nQ: How do you tell the difference between a walrus and an orange?\nA: Put your arms around it and squeeze it. If you don\'t get orange juice, it\'s a walrus.\nQ: What do chefs call "Baked Alaska" in Alaska?\nA: Baked Here\nQ: Getting a job in the Arctic in the winter is great! Why?\nA: When the days get short, you only have to work a 30 minute work week.\nQ: Why do seals swim in salt water?\nA: Because pepper water makes them sneeze!\nQ: Where can you find an ocean without any water?\nA: On a map!\nQ: What eight letters can you find in water from the Arctic Ocean?\nA: H to O! (H20)\nQ: Which side of an Arctic Tern has the most feathers?\nA: The outside!\nQ: What vegetable was forbidden on the ships of Arctic explorers?\nA: Leeks!\nQ: What happened when all the collected muskox wool was stolen?\nA: The police combed the area.\nQ: What did one Greenland Shark say to the other?\nA: Say, good lookin\'... didn\'t I meet you last night at the feeding frenzy?\nQ: What\'s a sign that you have an irrational fear of icebergs?\nA: You start having water-tight compartments installed in your pants.\nQ: What did the seal say when it swam into a concrete wall?\nA: Dam!\nQ: What do you call a reindeer with no eyes?\nA: I have no eye deer.\nQ: What do you get from sitting on the ice too long?\nA: Polaroids!\nQ: What did the detective in the Arctic say to the suspect?\nA: Where were you on the night of September to March?\nQ: What noise wakes you up at the North Pole around March 18?\nA: The crack of dawn!\nQ: If you live in an igloo, what\'s the worst thing about global warming?\nA: No privacy!\nQ: When are your eyes not eyes?\nA: When the cold Arctic wind makes them water!\nQ: What did the icy Arctic road say to the truck?\nA: Want to go for a spin?\nQ: What do Arctic hares use to keep their fur lookin\' spiffy?\nA: Hare spray!\nQ: What do you call ten Arctic hares hopping backwards through the snow together?\nA: A receding hare line.\nQ: Why are bad school grades like a shipwreck in the Arctic Ocean?\nA: They\'re both below C level!'.split('\n').reduce(function (all, row, i) {
-  return i % 2 === 0 ? [].concat(_toConsumableArray(all), [{ q: row }]) : [].concat(_toConsumableArray(all.slice(0, all.length - 1)), [Object.assign({ a: row }, all[all.length - 1])]);
-}, []);
-
-/***/ }),
+/* 290 */,
 /* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30628,9 +30526,9 @@ var Nav = function Nav() {
         'div',
         { className: 'nav-item' },
         _react2.default.createElement(
-          'a',
-          { href: '#' },
-          'home'
+          _reactRouterDom.Link,
+          { to: '/' },
+          ' home '
         )
       ),
       _react2.default.createElement(
@@ -30664,9 +30562,9 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _StudentListContainer = __webpack_require__(293);
+var _StudentList = __webpack_require__(312);
 
-var _StudentListContainer2 = _interopRequireDefault(_StudentListContainer);
+var _StudentList2 = _interopRequireDefault(_StudentList);
 
 var _reactRouterDom = __webpack_require__(41);
 
@@ -30697,7 +30595,8 @@ var CampusContainer = function (_Component) {
     var _this = _possibleConstructorReturn(this, (CampusContainer.__proto__ || Object.getPrototypeOf(CampusContainer)).call(this));
 
     _this.state = { campuses: [],
-      selectedCampus: 0
+      selectedCampus: 0,
+      allStudents: []
     };
     _this.changeSelected = _this.changeSelected.bind(_this);
     return _this;
@@ -30720,30 +30619,29 @@ var CampusContainer = function (_Component) {
   }, {
     key: 'changeSelected',
     value: function changeSelected(campusId) {
-      console.log('running');
-      this.setState({ selectedCampus: campusId });
-      console.log(this.state.selectedCampus);
+      var _this3 = this;
+
+      _axios2.default.get('/api/campuses/' + campusId + '/students').then(function (res) {
+        return res.data;
+      }).then(function (list) {
+        _this3.setState({ allStudents: list });
+        console.log(_this3.state);
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
-
-      // let campusId = 2
+      var campusId = this.state.selectedCampus;
       return _react2.default.createElement(
-        _reactRouterDom.BrowserRouter,
-        null,
-        _react2.default.createElement(
-          'div',
-          { className: 'campus-container' },
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/', render: function render() {
-              return _react2.default.createElement(_Campuses2.default, { campuses: _this3.state.campuses,
-                setCampus: _this3.changeSelected
-              });
-            } }),
-          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/campus/:campusId/students',
-            component: _StudentListContainer2.default })
-        )
+        'div',
+        { className: 'campus-container' },
+        _react2.default.createElement(_Campuses2.default, {
+          campuses: this.state.campuses,
+          setCampus: this.changeSelected
+        }),
+        _react2.default.createElement(_StudentList2.default, {
+          students: this.state.allStudents
+        })
       );
     }
   }]);
@@ -30764,92 +30662,16 @@ var CampusContainer = function (_Component) {
 // uses this.props.routeParams.campusId to know what students to render
 
 
+// routing and passing props
+
+
 exports.default = CampusContainer;
+{/* <Route path= "/" render={() => <Campuses campuses={this.state.campuses}
+  setCampus = {this.changeSelected}
+  />} /> */}
 
 /***/ }),
-/* 293 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _axios = __webpack_require__(25);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _StudentList = __webpack_require__(312);
-
-var _StudentList2 = _interopRequireDefault(_StudentList);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StudentListContainer = function (_Component) {
-  _inherits(StudentListContainer, _Component);
-
-  function StudentListContainer() {
-    _classCallCheck(this, StudentListContainer);
-
-    var _this = _possibleConstructorReturn(this, (StudentListContainer.__proto__ || Object.getPrototypeOf(StudentListContainer)).call(this));
-
-    _this.state = {
-      selectedCampus: 0,
-      allStudents: []
-    };
-    return _this;
-  }
-
-  _createClass(StudentListContainer, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var campusId = this.props.match.params.campusId;
-      console.log(campusId);
-      _axios2.default.get('/api/campuses/' + campusId + '/students').then(function (res) {
-        return res.data;
-      }).then(function (list) {
-        _this2.setState({ allStudents: list });
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      // console.log(this.state)
-      return _react2.default.createElement(
-        'div',
-        { className: 'student-list-container' },
-        _react2.default.createElement(
-          'h1',
-          null,
-          ' Student List Container '
-        ),
-        _react2.default.createElement(_StudentList2.default, { students: this.state.allStudents })
-      );
-    }
-  }]);
-
-  return StudentListContainer;
-}(_react.Component);
-
-exports.default = StudentListContainer;
-
-/***/ }),
+/* 293 */,
 /* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31754,7 +31576,6 @@ var StudentList = function (_Component) {
   _createClass(StudentList, [{
     key: "render",
     value: function render() {
-      console.log(this.props);
       var students = this.props.students;
       return _react2.default.createElement(
         "div",
@@ -31766,7 +31587,7 @@ var StudentList = function (_Component) {
         ),
         students.map(function (student) {
           return _react2.default.createElement(
-            "p",
+            "h1",
             null,
             " ",
             student.name,
@@ -31803,7 +31624,7 @@ var _reactRouterDom = __webpack_require__(41);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Campuses(props) {
-  console.log(props);
+  // console.log(props)
   // passing setCampus in here instead of using router so that we get a page refresh Link to is no longer needed I think
   return _react2.default.createElement(
     'div',
@@ -31826,12 +31647,6 @@ function Campuses(props) {
     })
   );
 }
-
-// href= "https://www.warnerbros.com/archive/spacejam/movie/jam.htm"
-
-{/* <img class="irc_mi" src="https://pbs.twimg.com/profile_images/665505233859174400/kA0u43JI.jpg" alt="Image result for bear" onload="typeof google==='object'&amp;&amp;google.aft&amp;&amp;google.aft(this)" width="256" height="256" style="margin-top: 69px;"> */}
-
-{/* <button onClick= {()=> console.log('you clicked')} > show students </button> */}
 
 /***/ }),
 /* 314 */
@@ -32082,40 +31897,27 @@ var AddPerson = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (AddPerson.__proto__ || Object.getPrototypeOf(AddPerson)).call(this));
 
-    _this.state = { name: '', email: '', gpa: 0 };
-    _this.handleName = _this.handleName.bind(_this);
-    _this.handleEmail = _this.handleEmail.bind(_this);
-    _this.handleGpa = _this.handleGpa.bind(_this);
-    _this.createNew = _this.createNew.bind(_this);
+    _this.state = { name: '', email: '', gpa: 0, campus: 0 };
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
     return _this;
   }
 
   _createClass(AddPerson, [{
-    key: 'handleName',
-    value: function handleName(ev) {
-      this.setState({ name: ev.target.value });
-    }
-  }, {
-    key: 'handleEmail',
-    value: function handleEmail(ev) {
-      this.setState({ email: ev.target.value });
-    }
-  }, {
-    key: 'handleGpa',
-    value: function handleGpa(ev) {
-      this.setState({ gpa: ev.target.value });
-    }
-  }, {
-    key: 'createNew',
-    value: function createNew(event) {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
       event.preventDefault();
-      var payload = this.state;
-      _axios2.default.post('/api/students/add', payload).then(function (res) {
-        return res.data;
-      }).then(function (newEntry) {
-        return console.log(newEntry);
-      });
-      this.setState({ name: '', email: '', gpa: 0 });
+
+      var payload = {
+        name: event.target.name.value,
+        email: event.target.email.value,
+        gpa: event.target.gpa.value,
+        campus: event.target.campus.value
+      };
+      console.log(payload);
+      // axios.post( '/api/students/add', payload )
+      //   .then(res => res.data)
+      //   .then(newEntry => console.log(newEntry))
+      // this.setState({name: '', email: '', gpa: 0})
     }
   }, {
     key: 'render',
@@ -32131,16 +31933,14 @@ var AddPerson = function (_Component) {
         ),
         _react2.default.createElement(
           'form',
-          { onSubmit: this.createNew },
+          { onSubmit: this.handleSubmit },
           _react2.default.createElement(
             'fieldset',
             null,
-            _react2.default.createElement('input', { placeholder: 'name', type: 'text', value: this.state.name,
-              onChange: this.handleName }),
-            _react2.default.createElement('input', { placeholder: 'campus', type: 'text', value: this.state.email,
-              onChange: this.handleEmail }),
-            _react2.default.createElement('input', { placeholder: 'gpa', type: 'text', value: this.state.gpa,
-              onChange: this.handleGpa }),
+            _react2.default.createElement('input', { placeholder: 'name', type: 'text', name: 'name' }),
+            _react2.default.createElement('input', { placeholder: 'email', type: 'text', name: 'email' }),
+            _react2.default.createElement('input', { placeholder: 'gpa', type: 'text', name: 'gpa' }),
+            _react2.default.createElement('input', { placeholder: 'campus', type: 'text', name: 'campus' }),
             _react2.default.createElement(
               'button',
               {
@@ -32158,182 +31958,6 @@ var AddPerson = function (_Component) {
 }(_react.Component);
 
 exports.default = AddPerson;
-
-/***/ }),
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _CampusTable = __webpack_require__(318);
-
-var _CampusTable2 = _interopRequireDefault(_CampusTable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var campuses = ['luna', 'terra', 'mars', 'titan'];
-
-var Home = function (_Component) {
-  _inherits(Home, _Component);
-
-  function Home() {
-    _classCallCheck(this, Home);
-
-    var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this));
-
-    _this.state = {
-      selectedCampus: {},
-      showStudents: false
-    };
-    _this.handleClick = _this.handleClick.bind(_this);
-    return _this;
-  }
-
-  _createClass(Home, [{
-    key: 'handleClick',
-    value: function handleClick() {
-      this.setState({ showStudents: true });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'h1',
-          null,
-          ' home page'
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'campus-wrapper' },
-          campuses.map(function (campus) {
-            return _react2.default.createElement(
-              'div',
-              { className: 'campus', onClick: _this2.handleClick },
-              _react2.default.createElement(
-                'h2',
-                null,
-                ' campus '
-              ),
-              _react2.default.createElement('img', { src: 'https://d2ujflorbtfzji.cloudfront.net/key-image/c3c498a4-261b-4928-b282-48ea4ed12b12.png' })
-            );
-          })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'campus-table-wrapper' },
-          _react2.default.createElement(_CampusTable2.default, null)
-        )
-      );
-    }
-  }]);
-
-  return Home;
-}(_react.Component);
-
-exports.default = Home;
-
-/***/ }),
-/* 318 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _axios = __webpack_require__(25);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CampusTable = function (_Component) {
-  _inherits(CampusTable, _Component);
-
-  function CampusTable() {
-    _classCallCheck(this, CampusTable);
-
-    var _this = _possibleConstructorReturn(this, (CampusTable.__proto__ || Object.getPrototypeOf(CampusTable)).call(this));
-
-    _this.state = { students: [] };
-    return _this;
-  }
-
-  _createClass(CampusTable, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _axios2.default.get('/api/students').then(function (res) {
-        return res.data;
-      }).then(function (students) {
-        console.log(students);
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      //   if (props.students){
-      //     students = props.students.map((student => {
-      //      return (
-      //        <tr>
-      //          <td> {student.name} </td>
-      //          <td> {student.email} </td>
-      //          <td> {student.gpa} </td>
-      //        </tr>
-      //      )
-      //    }))
-      //  }
-      return _react2.default.createElement(
-        'div',
-        { className: 'campus-table' },
-        _react2.default.createElement(
-          'h1',
-          null,
-          ' a table will go here '
-        )
-      );
-    }
-  }]);
-
-  return CampusTable;
-}(_react.Component);
-
-exports.default = CampusTable;
 
 /***/ })
 /******/ ]);

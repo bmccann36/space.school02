@@ -10,13 +10,12 @@ export default class StudentList extends Component {
 
 
     render(){
-      console.log(this.props)
       const students = this.props.students
     return (
       <div className= "student-list">
         <h1> student list component </h1>
       {students.map((student) => {
-        return <p> {student.name} </p>
+        return <h1> {student.name} </h1>
       })}
       </div>
     )
