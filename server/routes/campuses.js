@@ -18,8 +18,9 @@ router.get('/', (req, res, next) => {
 // full route - - localhost:1337/api/campuses/<id>
 // return all students whose campusId is < ?>
 router.get('/:campusId/students', (req, res, next) => {
+  console.log(req.params.campusId, 'HERE')
   Student.findAll({
-    where: { campusId: 1 }
+    where: { campusId: req.params.campusId }
   })
   .then(student => {res.send(student)})
 })

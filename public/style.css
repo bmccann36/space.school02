@@ -3,13 +3,18 @@
 .campus-container {
   background-color: goldenrod;
   max-width: 70%;
-  display: flex;
+
 }
 
 .campuses {
-  flex: 3;
+  display: flex;
   background-color: green;
   margin: 1em;
+}
+
+/* each individual campus element */
+.campus {
+  flex: 3;
 }
 
 .student-list {

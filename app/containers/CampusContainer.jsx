@@ -3,24 +3,44 @@ import React, { Component } from 'react';
 import StudentListContainer from './StudentListContainer'
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Campuses from '../components/Campuses'
+import axios from 'axios'
 // make an axios request for all students
 
 export default class CampusContainer extends Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = { campuses: [],
+                  selectedCampus: 0
+                  }
+    this.changeSelected = this.changeSelected.bind(this)
+  }
+
+  componentDidMount(){
+    axios.get('/api/campuses')
+    .then(res => res.data)
+    .then(campuses => {
+      this.setState( {campuses: campuses})
+    })
+  }
+
+  // when the campus div is clicked it changes campus ID on state
+  changeSelected(campusId){
+    console.log('running')
+    this.setState({selectedCampus: campusId })
+    console.log(this.state.selectedCampus)
   }
 
 
   render(){
-    let campusId = 2
+    // let campusId = 2
     return (
       <BrowserRouter>
         <div className= "campus-container">
-
-          <Route path= '/' component={Campuses} />
-          <Route exact path= '/campus' component={StudentListContainer} />
-
+          <Route path= "/" render={() => <Campuses campuses={this.state.campuses}
+          setCampus = {this.changeSelected}
+          />} />
+          <Route exact path= '/campus/:campusId/students'
+          component={StudentListContainer} />
         </div>
       </BrowserRouter>
     )
