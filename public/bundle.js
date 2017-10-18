@@ -30525,7 +30525,125 @@ var Nav = function Nav() {
 exports.default = Nav;
 
 /***/ }),
-/* 291 */,
+/* 291 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(42);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouterDom = __webpack_require__(40);
+
+var _StudentList = __webpack_require__(292);
+
+var _StudentList2 = _interopRequireDefault(_StudentList);
+
+var _Campuses = __webpack_require__(293);
+
+var _Campuses2 = _interopRequireDefault(_Campuses);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CampusContainer = function (_Component) {
+  _inherits(CampusContainer, _Component);
+
+  function CampusContainer() {
+    _classCallCheck(this, CampusContainer);
+
+    var _this = _possibleConstructorReturn(this, (CampusContainer.__proto__ || Object.getPrototypeOf(CampusContainer)).call(this));
+
+    _this.state = { campuses: [],
+      selectedCampus: 0,
+      visibleStudents: [],
+      allStudents: []
+    };
+    _this.changeSelected = _this.changeSelected.bind(_this);
+    return _this;
+  }
+
+  _createClass(CampusContainer, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var campuses = _axios2.default.get('/api/campuses');
+      var students = _axios2.default.get('/api/students');
+
+      Promise.all([campuses, students]).then(function (res) {
+        return res.map(function (r) {
+          return r.data;
+        });
+      }).then(function (data) {
+        _this2.setState({ campuses: data[0], allStudents: data[1] });
+      });
+      // data[0] is campuses  data[1] is students
+    }
+
+    // when the campus div is clicked it changes campus ID on state
+
+  }, {
+    key: 'changeSelected',
+    value: function changeSelected(campusId) {
+      var _this3 = this;
+
+      _axios2.default.get('/api/campuses/' + campusId + '/students').then(function (res) {
+        return res.data;
+      }).then(function (list) {
+        _this3.setState({ visibleStudents: list });
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          ' CampusContainer '
+        ),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+            return _react2.default.createElement(_Campuses2.default, {
+              campuses: _this4.state.campuses,
+              setCampus: _this4.changeSelected });
+          }
+        }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
+            return _react2.default.createElement(_StudentList2.default, { students: _this4.state.visibleStudents });
+          }
+        })
+      );
+    }
+  }]);
+
+  return CampusContainer;
+}(_react.Component);
+
+exports.default = CampusContainer;
+
+/***/ }),
 /* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31760,13 +31878,9 @@ var _Nav = __webpack_require__(290);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
-var _Campuses = __webpack_require__(293);
+var _CampusContainer = __webpack_require__(291);
 
-var _Campuses2 = _interopRequireDefault(_Campuses);
-
-var _StudentList = __webpack_require__(292);
-
-var _StudentList2 = _interopRequireDefault(_StudentList);
+var _CampusContainer2 = _interopRequireDefault(_CampusContainer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31777,6 +31891,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // make an axios request for all students
 
+// import Campuses from '../components/Campuses'
+
+
+// import StudentList from '../components/StudentList'
+
 
 var AppContainer = function (_Component) {
   _inherits(AppContainer, _Component);
@@ -31784,55 +31903,14 @@ var AppContainer = function (_Component) {
   function AppContainer() {
     _classCallCheck(this, AppContainer);
 
-    var _this = _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this));
-
-    _this.state = { campuses: [],
-      selectedCampus: 0,
-      visibleStudents: [],
-      allStudents: []
-    };
-    _this.changeSelected = _this.changeSelected.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (AppContainer.__proto__ || Object.getPrototypeOf(AppContainer)).call(this));
   }
 
   _createClass(AppContainer, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      var campuses = _axios2.default.get('/api/campuses');
-      var students = _axios2.default.get('/api/students');
-
-      Promise.all([campuses, students]).then(function (res) {
-        return res.map(function (r) {
-          return r.data;
-        });
-      }).then(function (data) {
-        _this2.setState({ campuses: data[0], allStudents: data[1] });
-      });
-      // data[0] is campuses  data[1] is students
-    }
-
-    // when the campus div is clicked it changes campus ID on state
-
-  }, {
-    key: 'changeSelected',
-    value: function changeSelected(campusId) {
-      var _this3 = this;
-
-      _axios2.default.get('/api/campuses/' + campusId + '/students').then(function (res) {
-        return res.data;
-      }).then(function (list) {
-        _this3.setState({ visibleStudents: list });
-      });
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
+      var _this2 = this;
 
-      // const campusId = this.state.selectedCampus
-      // console.log(this.state.visibleStudents)
       return _react2.default.createElement(
         _reactRouterDom.BrowserRouter,
         null,
@@ -31843,20 +31921,11 @@ var AppContainer = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: 'campus-container' },
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-                return _react2.default.createElement(_Campuses2.default, {
-                  campuses: _this4.state.campuses,
-                  setCampus: _this4.changeSelected });
-              }
-            }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-                return _react2.default.createElement(_StudentList2.default, { students: _this4.state.visibleStudents });
-              }
-            }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', render: function render() {
                 return _react2.default.createElement(_StudentsContainer2.default, {
-                  allStudents: _this4.state.allStudents,
-                  campuses: _this4.state.campuses });
+                  allStudents: _this2.state.allStudents,
+                  campuses: _this2.state.campuses });
               }
             })
           )
@@ -31878,20 +31947,6 @@ setCampus = {this.changeSelected}
 students= {this.state.allStudents}
 campuses= {this.state.campuses}
 /> */
-// axios request to load all campuses
-
-// on campus icon click react router gets triggered to show the studentList  view in addition to the campuses grid
-
-// student list container - - -
-// maybe container and component can be the same
-// <Link className="thumbnail" to={`/albums/${album.id}`}>
-// link to /campus/${campus.id}
-
-// the list of students component
-// uses this.props.routeParams.campusId to know what students to render
-
-
-// routing and passing props
 
 
 exports.default = AppContainer;
