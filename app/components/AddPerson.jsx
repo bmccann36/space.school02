@@ -8,20 +8,19 @@ export default class AddPerson extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-
   handleSubmit(event){
     event.preventDefault()
-
     const payload = {
       name: event.target.name.value,
       email: event.target.email.value,
       gpa: event.target.gpa.value,
       campusId: event.target.campus.value
     }
-    console.log(payload)
-    axios.post( '/api/students/add', payload )
-      .then(res => res.data)
-      .then(newEntry => console.log(newEntry))
+
+    this.props.addStudent(payload)
+    // axios.post( '/api/students/add', payload )
+    //   .then(res => res.data)
+    //   .then(newEntry => console.log(newEntry))
     // this.setState({name: '', email: '', gpa: 0})
   }
 

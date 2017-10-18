@@ -31660,19 +31660,17 @@ var AddPerson = function (_Component) {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
       event.preventDefault();
-
       var payload = {
         name: event.target.name.value,
         email: event.target.email.value,
         gpa: event.target.gpa.value,
         campusId: event.target.campus.value
       };
-      console.log(payload);
-      _axios2.default.post('/api/students/add', payload).then(function (res) {
-        return res.data;
-      }).then(function (newEntry) {
-        return console.log(newEntry);
-      });
+
+      this.props.addStudent(payload);
+      // axios.post( '/api/students/add', payload )
+      //   .then(res => res.data)
+      //   .then(newEntry => console.log(newEntry))
       // this.setState({name: '', email: '', gpa: 0})
     }
   }, {
@@ -31929,6 +31927,8 @@ var _AddPerson2 = _interopRequireDefault(_AddPerson);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -31949,6 +31949,7 @@ var StudentsContainer = function (_Component) {
     };
     _this.handleClick = _this.handleClick.bind(_this);
     _this.deleteStudent = _this.deleteStudent.bind(_this);
+    _this.addStudent = _this.addStudent.bind(_this);
     return _this;
   }
 
@@ -31964,6 +31965,19 @@ var StudentsContainer = function (_Component) {
       });
     }
   }, {
+    key: 'addStudent',
+    value: function addStudent(payload) {
+      var _this3 = this;
+
+      var prevStuds = this.state.visibleStudents;
+      _axios2.default.post('/api/students/add', payload).then(function (res) {
+        return res.data;
+      }).then(function (newEntry) {
+        console.log(newEntry);
+        _this3.setState({ visibleStudents: [].concat(_toConsumableArray(prevStuds), [newEntry]) });
+      });
+    }
+  }, {
     key: 'deleteStudent',
     value: function deleteStudent(studentId) {
       var prevStuds = this.state.visibleStudents;
@@ -31971,7 +31985,6 @@ var StudentsContainer = function (_Component) {
       var currStuds = prevStuds.filter(function (student) {
         return student.id !== studentId;
       });
-
       this.setState({ visibleStudents: currStuds });
     }
   }, {
@@ -31996,7 +32009,9 @@ var StudentsContainer = function (_Component) {
           _react2.default.createElement(_StudentTable2.default, { students: this.state.visibleStudents,
             deleteStudent: this.deleteStudent
           }),
-          this.state.showForm && _react2.default.createElement(_AddPerson2.default, { campuses: this.props.campuses })
+          this.state.showForm && _react2.default.createElement(_AddPerson2.default, { campuses: this.props.campuses,
+            addStudent: this.addStudent
+          })
         )
       );
     }

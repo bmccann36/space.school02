@@ -14,6 +14,7 @@ export default class StudentsContainer extends Component {
      }
      this.handleClick = this.handleClick.bind(this)
      this.deleteStudent = this.deleteStudent.bind(this)
+     this.addStudent = this.addStudent.bind(this)
     }
 
 
@@ -25,13 +26,22 @@ export default class StudentsContainer extends Component {
       })
     }
 
+    addStudent(payload){
+      const prevStuds = this.state.visibleStudents
+      axios.post( '/api/students/add', payload )
+      .then(res => res.data)
+      .then(newEntry => {
+        console.log(newEntry)
+      this.setState( {visibleStudents: [...prevStuds, newEntry]})
+      })
+    }
+
 
     deleteStudent(studentId){
       const prevStuds = this.state.visibleStudents
       axios.delete(`api/students/${studentId}/delete`)
       const currStuds = prevStuds.filter(student => {
         return student.id !== studentId })
-
       this.setState({visibleStudents: currStuds})
   }
 
@@ -49,7 +59,9 @@ export default class StudentsContainer extends Component {
                  deleteStudent={this.deleteStudent}
                   />
               { this.state.showForm &&
-              <AddPerson campuses={this.props.campuses} /> }
+              <AddPerson campuses={this.props.campuses}
+              addStudent={this.addStudent}
+              /> }
             </div>
         </div>
         )
