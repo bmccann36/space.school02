@@ -7,9 +7,8 @@ export default class StudentList extends Component {
     }
 
 
-
-
     render(){
+      // console.log(this.props.campuses)
       const students = this.props.students
     return (
       <div className= "student-list">
