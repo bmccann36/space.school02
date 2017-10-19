@@ -25,7 +25,7 @@ export default class AppContainer extends Component {
           <Route exact path= "/" component= {CampusContainer} />
           <Route path = '/students/:studentId' component = {StudentsContainer} />
 
-            {/* <Route exact path="/students" component={StudentsContainer} /> */}
+           <Route exact path="/students" component={StudentsContainer} />
 
         </div>
 

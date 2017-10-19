@@ -31984,7 +31984,8 @@ var AppContainer = function (_Component) {
             'div',
             null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/students/:studentId', component: _StudentsContainer2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/students/:studentId', component: _StudentsContainer2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', component: _StudentsContainer2.default })
           )
         )
       );
@@ -32043,6 +32044,10 @@ var _AddPerson = __webpack_require__(314);
 
 var _AddPerson2 = _interopRequireDefault(_AddPerson);
 
+var _StudentInfo = __webpack_require__(321);
+
+var _StudentInfo2 = _interopRequireDefault(_StudentInfo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -32063,7 +32068,8 @@ var StudentsContainer = function (_Component) {
 
     _this.state = {
       showForm: false,
-      visibleStudents: []
+      allStudents: [],
+      selectedStudent: null
     };
     _this.handleClick = _this.handleClick.bind(_this);
     _this.deleteStudent = _this.deleteStudent.bind(_this);
@@ -32079,7 +32085,15 @@ var StudentsContainer = function (_Component) {
       _axios2.default.get('/api/students').then(function (res) {
         return res.data;
       }).then(function (students) {
-        _this2.setState({ visibleStudents: students });
+        _this2.setState({ allStudents: students });
+        var studentId = _this2.props.match.params.studentId;
+        if (studentId) {
+          var selected = students.filter(function (student) {
+            return student.id === +studentId;
+          });
+          // console.log(selected, 'selected student')
+          _this2.setState({ selectedStudent: selected });
+        }
       });
     }
   }, {
@@ -32087,23 +32101,23 @@ var StudentsContainer = function (_Component) {
     value: function addStudent(payload) {
       var _this3 = this;
 
-      var prevStuds = this.state.visibleStudents;
+      var prevStuds = this.state.allStudents;
       _axios2.default.post('/api/students/add', payload).then(function (res) {
         return res.data;
       }).then(function (newEntry) {
         console.log(newEntry);
-        _this3.setState({ visibleStudents: [].concat(_toConsumableArray(prevStuds), [newEntry]) });
+        _this3.setState({ allStudents: [].concat(_toConsumableArray(prevStuds), [newEntry]) });
       });
     }
   }, {
     key: 'deleteStudent',
     value: function deleteStudent(studentId) {
-      var prevStuds = this.state.visibleStudents;
+      var prevStuds = this.state.allStudents;
       _axios2.default.delete('api/students/' + studentId + '/delete');
       var currStuds = prevStuds.filter(function (student) {
         return student.id !== studentId;
       });
-      this.setState({ visibleStudents: currStuds });
+      this.setState({ allStudents: currStuds });
     }
   }, {
     key: 'handleClick',
@@ -32113,23 +32127,26 @@ var StudentsContainer = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var display = this.state.selectedStudent || this.state.allStudents;
+      console.log(display, 'display');
       return _react2.default.createElement(
         'div',
         { className: 'students-container' },
         _react2.default.createElement(
           'button',
           { onClick: this.handleClick },
-          ' click to edit '
+          ' click to add a student '
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_StudentTable2.default, { students: this.state.visibleStudents,
+          _react2.default.createElement(_StudentTable2.default, { students: display,
             deleteStudent: this.deleteStudent
           }),
           this.state.showForm && _react2.default.createElement(_AddPerson2.default, { campuses: this.props.campuses,
             addStudent: this.addStudent
-          })
+          }),
+          display && _react2.default.createElement(StudentInfo, null)
         )
       );
     }
@@ -32142,9 +32159,9 @@ var StudentsContainer = function (_Component) {
 //   axios.get('/api/students')
 //   .then(res => res.data)
 //   .then(students => {
-//     this.setState({visibleStudents: students})
+//     this.setState({allStudents: students})
 //     this.forceUpdate()
-//     console.log(this.state.visibleStudents)
+//     console.log(this.state.allStudents)
 //   })
 // )
 
@@ -32413,6 +32430,13 @@ exports.default = SingleCampus;
 
 /***/ }),
 /* 320 */
+/***/ (function(module, exports) {
+
+"use strict";
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Users/brianmccann/projects/space.school02/app/components/StudentFlex.jsx'\n    at Error (native)");
+
+/***/ }),
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32436,16 +32460,16 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var StudentFlex = function (_Component) {
-  _inherits(StudentFlex, _Component);
+var StudentInfo = function (_Component) {
+  _inherits(StudentInfo, _Component);
 
-  function StudentFlex(props) {
-    _classCallCheck(this, StudentFlex);
+  function StudentInfo(props) {
+    _classCallCheck(this, StudentInfo);
 
-    return _possibleConstructorReturn(this, (StudentFlex.__proto__ || Object.getPrototypeOf(StudentFlex)).call(this, props));
+    return _possibleConstructorReturn(this, (StudentInfo.__proto__ || Object.getPrototypeOf(StudentInfo)).call(this, props));
   }
 
-  _createClass(StudentFlex, [{
+  _createClass(StudentInfo, [{
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -32460,10 +32484,10 @@ var StudentFlex = function (_Component) {
     }
   }]);
 
-  return StudentFlex;
+  return StudentInfo;
 }(_react.Component);
 
-exports.default = StudentFlex;
+exports.default = StudentInfo;
 
 /***/ })
 /******/ ]);

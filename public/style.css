@@ -12,7 +12,6 @@
 }
 
 
-
 img {
   width: 75px;
   height: 75px;
@@ -38,17 +37,8 @@ img {
 
 
 
-.student-list-display {
-  background-color: rebeccapurple;
-  margin: 1em;
-}
-.student-flex-display {
-  background-color: green;
-  -moz-text-decoration-color: orange;
-}
 
-/* just the student table  */
-.students-table {
+.students-container {
   background-color: greenyellow;
   padding: 2em;
   margin: 4em;

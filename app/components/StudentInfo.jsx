@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 
-export default class StudentFlex extends Component {
+export default class StudentInfo extends Component {
   constructor(props){
   super(props)
 }

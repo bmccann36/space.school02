@@ -11,7 +11,7 @@ const Campus = models.Campus
 
 // return all students
 router.get('/', (req, res, next) => {
-  Student.findAll()
+  Student.findAll({include: Campus})
   .then(students => res.json(students))
   // .then(res.send.bind(res))
   .catch(next)
