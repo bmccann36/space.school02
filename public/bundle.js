@@ -30555,6 +30555,10 @@ var _Campuses = __webpack_require__(293);
 
 var _Campuses2 = _interopRequireDefault(_Campuses);
 
+var _AddCampus = __webpack_require__(317);
+
+var _AddCampus2 = _interopRequireDefault(_AddCampus);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30614,26 +30618,22 @@ var CampusContainer = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this4 = this;
-
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
-          'h1',
-          null,
-          ' CampusContainer '
+          'div',
+          { className: 'campus-container' },
+          _react2.default.createElement(_Campuses2.default, {
+            campuses: this.state.campuses,
+            setCampus: this.changeSelected
+          })
         ),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-            return _react2.default.createElement(_Campuses2.default, {
-              campuses: _this4.state.campuses,
-              setCampus: _this4.changeSelected });
-          }
-        }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', render: function render() {
-            return _react2.default.createElement(_StudentList2.default, { students: _this4.state.visibleStudents });
-          }
-        })
+        _react2.default.createElement(
+          'div',
+          { className: 'student-list-display' },
+          _react2.default.createElement(_StudentList2.default, { students: this.state.visibleStudents })
+        )
       );
     }
   }]);
@@ -30692,7 +30692,7 @@ var StudentList = function (_Component) {
         ),
         students.map(function (student) {
           return _react2.default.createElement(
-            "h1",
+            "p",
             null,
             " ",
             student.name,
@@ -30734,11 +30734,11 @@ function Campuses(props) {
   // passing setCampus in here instead of using router so that we get a page refresh Link to is no longer needed I think
   return _react2.default.createElement(
     "div",
-    { className: "campuses" },
+    { className: "campuses-display" },
     props.campuses.map(function (campus) {
       return _react2.default.createElement(
         "div",
-        { className: "campus", key: campus.id, onClick: function onClick() {
+        { className: "campus-icon", key: campus.id, onClick: function onClick() {
             return props.setCampus(campus.id);
           } },
         _react2.default.createElement(
@@ -31922,11 +31922,11 @@ var AppContainer = function (_Component) {
         null,
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'app-container' },
           _react2.default.createElement(_Nav2.default, null),
           _react2.default.createElement(
             'div',
-            { className: 'campus-container' },
+            null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', component: _StudentsContainer2.default })
           )
@@ -32092,6 +32092,76 @@ var StudentsContainer = function (_Component) {
 
 
 exports.default = StudentsContainer;
+
+/***/ }),
+/* 317 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(42);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddCampus = function (_Component) {
+  _inherits(AddCampus, _Component);
+
+  function AddCampus() {
+    _classCallCheck(this, AddCampus);
+
+    return _possibleConstructorReturn(this, (AddCampus.__proto__ || Object.getPrototypeOf(AddCampus)).call(this));
+  }
+
+  _createClass(AddCampus, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'form',
+          { onSubmit: 'none' },
+          _react2.default.createElement('input', { placeholder: 'Campus Name', type: 'text', name: 'name', value: 'Default Campus' })
+        )
+      );
+    }
+  }]);
+
+  return AddCampus;
+}(_react.Component);
+
+// <div>
+// <form onSubmit = {this.handleSubmit} >
+// <fieldset>
+
+
+//   <button type="submit" className="btn btn-success">
+//     submit </button>
+//   </fieldset>
+// {/*  */}
+// </div>
+
+
+exports.default = AddCampus;
 
 /***/ })
 /******/ ]);

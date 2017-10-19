@@ -1,42 +1,40 @@
 
 
-.campus-container {
-  background-color: goldenrod;
-  max-width: 70%;
 
-}
-
-.campuses {
+/* list of all campuses sits below campus container */
+/* the presentational component */
+.campuses-display {
   display: flex;
-  background-color: green;
+  background-color: lightblue;
   margin: 1em;
 }
 
-/* each individual campus element */
-.campus {
-  flex: 3;
+/* wrapper around the addd campus component */
+.add-campus-display {
+flex: 3;
+background-color: orange;
+
 }
 
-.student-list {
+.student-list-display {
   background-color: rebeccapurple;
   margin: 1em;
 }
 
-.student-list-container {
+
+.campus-icon {
+  width: 20em;
+  background-color: #C1B5AD;
+  margin: 2em;
+}
+
+/* .student-list-container {
   flex: 2;
   background-color: grey;
   margin: 1em;
-}
-
-/* .campus {
-  flex: 2;
-  background-color: #C1B5AD;
-  margin: 2em;
 } */
 
-
-
-/* just the student table */
+/* just the student table  */
 .students-table {
   background-color: greenyellow;
   padding: 2em;
@@ -44,13 +42,14 @@
   flex: 2;
 }
 
-/* wrapper around Students Home */
+wrapper around Students Home
 .students-container {
 display: flex;
+background-color: lightcoral;
 }
 
-/* form for adding people */
-.add-person {
+/* form for adding people */ */
+ .add-person {
   flex: 1;
   max-width: 30%;
   background-color: lightblue

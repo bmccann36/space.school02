@@ -18,9 +18,9 @@ export default class AppContainer extends Component {
   render(){
     return (
       <BrowserRouter>
-      <div>
+      <div className= "app-container">
       <Nav />
-        <div className= "campus-container">
+        <div >
           <Route exact path= "/" component= {CampusContainer} />
 
           <Route exact path="/students" component={StudentsContainer} />

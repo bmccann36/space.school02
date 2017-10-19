@@ -14,7 +14,7 @@ export default class StudentList extends Component {
       <div className= "student-list">
         <h1> student list component </h1>
       {students.map((student) => {
-        return <h1> {student.name} </h1>
+        return <p> {student.name} </p>
       })}
       </div>
     )

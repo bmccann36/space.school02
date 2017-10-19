@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import StudentList from '../components/StudentList'
 import Campuses from '../components/Campuses'
+import AddCampus from '../components/AddCampus'
+
 
 export default class CampusContainer extends Component {
   constructor() {
@@ -40,13 +42,26 @@ this.setState( {visibleStudents: list} )
   render(){
   return (
     <div>
-    <h1> CampusContainer </h1>
-      <Route exact path= "/" render={() => <Campuses
-      campuses={this.state.campuses}
-      setCampus = {this.changeSelected} />}
-      />
-      <Route exact path = "/" render={() => <StudentList students = {this.state.visibleStudents} />}
-      />
+      <div className= "campus-container">
+        <Campuses
+          campuses={this.state.campuses}
+          setCampus = {this.changeSelected}
+        />
+      </div>
+
+
+      <div className= "student-list-display">
+        <StudentList students = {this.state.visibleStudents} />
+
+      </div>
+
+
+      {/* <div className="add-campus-display">
+        <p> hello </p>
+          <AddCampus />
+        <p> hello </p>
+      </div> */}
+
     </div>
   )
  }
