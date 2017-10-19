@@ -30559,6 +30559,10 @@ var _EditCampus = __webpack_require__(318);
 
 var _EditCampus2 = _interopRequireDefault(_EditCampus);
 
+var _SingleCampus = __webpack_require__(319);
+
+var _SingleCampus2 = _interopRequireDefault(_SingleCampus);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30614,6 +30618,7 @@ var CampusContainer = function (_Component) {
         return res.data;
       }).then(function (list) {
         _this3.setState({ visibleStudents: list });
+        _this3.setState({ selectedCampus: campusId });
       });
     }
   }, {
@@ -30622,27 +30627,24 @@ var CampusContainer = function (_Component) {
       // console.log(campusId, 'campusId in delete campus called ')
       _axios2.default.delete('/api/campuses/' + campusId + '/delete').then(function (res) {
         return res.data;
-      }).then(function (data) {
-        return console.log(data);
       });
+      // .then(data => console.log(data))
     }
   }, {
     key: 'createCampus',
     value: function createCampus(payload) {
       _axios2.default.post('/api/campuses/add', payload).then(function (res) {
         return res.data;
-      }).then(function (data) {
-        return console.log(data);
       });
+      // .then(data => console.log(data))
     }
   }, {
     key: 'editCampus',
     value: function editCampus(campusId, payload) {
       _axios2.default.put('/api/campuses/' + campusId + '/edit', payload).then(function (res) {
         return res.data;
-      }).then(function (data) {
-        return console.log(data);
       });
+      // .then(data => console.log(data))
     }
   }, {
     key: 'render',
@@ -30657,21 +30659,17 @@ var CampusContainer = function (_Component) {
             campuses: this.state.campuses,
             setCampus: this.changeSelected
           }),
-          _react2.default.createElement(
-            'div',
-            { className: 'edit-campus-container' },
-            _react2.default.createElement(
-              'h1',
-              null,
-              ' new stuff will go here '
-            ),
-            _react2.default.createElement(_EditCampus2.default, {
-              campuses: this.state.campuses,
-              deleteCampus: this.deleteCampus,
-              createCampus: this.createCampus,
-              editCampus: this.editCampus
-            })
-          )
+          this.state.selectedCampus == 0 && _react2.default.createElement(_EditCampus2.default, {
+            campuses: this.state.campuses,
+            deleteCampus: this.deleteCampus,
+            createCampus: this.createCampus,
+            editCampus: this.editCampus
+          }),
+          this.state.selectedCampus !== 0 && _react2.default.createElement(_SingleCampus2.default, {
+            students: this.state.visibleStudents,
+            campuses: this.state.campuses,
+            campusId: this.state.selectedCampus
+          })
         ),
         _react2.default.createElement(
           'div',
@@ -31869,17 +31867,12 @@ var AddPerson = function (_Component) {
           _react2.default.createElement(
             'fieldset',
             null,
-            _react2.default.createElement('input', { placeholder: 'name', type: 'text', name: 'name', value: 'buddy' }),
-            _react2.default.createElement('input', { placeholder: 'email', type: 'text', name: 'email', value: 'bud@@' }),
-            _react2.default.createElement('input', { placeholder: 'gpa', type: 'text', name: 'gpa', value: 3 }),
+            _react2.default.createElement('input', { placeholder: 'name', type: 'text', name: 'name' }),
+            _react2.default.createElement('input', { placeholder: 'email', type: 'text', name: 'email' }),
+            _react2.default.createElement('input', { placeholder: 'gpa', type: 'text', name: 'gpa' }),
             _react2.default.createElement(
               'select',
               { type: 'text', name: 'campus' },
-              _react2.default.createElement(
-                'option',
-                null,
-                1
-              ),
               campusNames
             ),
             _react2.default.createElement(
@@ -32223,7 +32216,7 @@ var EditCampus = function (_Component) {
       });
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'edit-campus-display' },
         _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmitDelete },
@@ -32299,6 +32292,93 @@ var EditCampus = function (_Component) {
 
 
 exports.default = EditCampus;
+
+/***/ }),
+/* 319 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(40);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SingleCampus = function (_Component) {
+  _inherits(SingleCampus, _Component);
+
+  function SingleCampus() {
+    _classCallCheck(this, SingleCampus);
+
+    var _this = _possibleConstructorReturn(this, (SingleCampus.__proto__ || Object.getPrototypeOf(SingleCampus)).call(this));
+
+    _this.state = {
+      campus: {}
+    };
+    return _this;
+  }
+
+  _createClass(SingleCampus, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var thisCampus = this.props.campuses.filter(function (campus) {
+        return campus.id == _this2.props.selectedCampus;
+      });
+      // console.log(thisCampus, 'campus Id')
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
+
+      // console.log(this.props)
+      var thisCampus = this.props.campuses.filter(function (campus) {
+        return campus.id == _this3.props.campusId;
+      });
+      console.log(thisCampus, "this campus");
+      var students = this.props.students;
+      return _react2.default.createElement(
+        'div',
+        { className: 'single-campus-display' },
+        students.map(function (student) {
+          return _react2.default.createElement(
+            'div',
+            { key: student.id },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/students' },
+              ' ',
+              student.name,
+              ' '
+            )
+          );
+        })
+      );
+    }
+  }]);
+
+  return SingleCampus;
+}(_react.Component);
+
+exports.default = SingleCampus;
 
 /***/ })
 /******/ ]);

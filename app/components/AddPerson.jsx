@@ -38,12 +38,11 @@ const campusNames = this.state.campuses.map(campus => {
         <h1>Add Person </h1>
         <form onSubmit = {this.handleSubmit} >
           <fieldset>
-            <input placeholder= "name" type="text" name="name" value="buddy" />
-            <input placeholder= "email" type= "text" name="email" value="bud@@" />
-            <input placeholder= "gpa" type= "text" name="gpa" value={3} />
+            <input placeholder= "name" type="text" name="name"  />
+            <input placeholder= "email" type= "text" name="email"  />
+            <input placeholder= "gpa" type= "text" name="gpa"  />
 
               <select type="text" name="campus">
-                <option>{1}</option>
                 {campusNames}
               </select>
             <button type="submit">

@@ -26,7 +26,7 @@ export default class AppContainer extends Component {
           <Route exact path="/students" component={StudentsContainer} />
         </div>
       </div>
-        </BrowserRouter>
+     </BrowserRouter>
 
     )
 

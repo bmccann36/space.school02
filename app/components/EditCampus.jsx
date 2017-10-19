@@ -42,7 +42,7 @@ render() {
     return <option key={campus.id} value={campus.id} > {campus.name} </option>
   })
     return (
-      <div>
+      <div className="edit-campus-display" >
         <form onSubmit = {this.handleSubmitDelete}>
           <p> delete campus </p>
           <select type="text" name="campus">

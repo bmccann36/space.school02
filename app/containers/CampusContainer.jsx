@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 import StudentList from '../components/StudentList'
 import Campuses from '../components/Campuses'
 import EditCampus from '../components/EditCampus'
-
+import SingleCampus from '../components/SingleCampus'
 
 export default class CampusContainer extends Component {
   constructor() {
@@ -37,6 +37,7 @@ axios.get(`/api/campuses/${campusId}/students`)
 .then(res => res.data)
 .then(list => {
 this.setState( {visibleStudents: list} )
+this.setState( {selectedCampus: campusId})
 })
 }
 
@@ -44,19 +45,19 @@ deleteCampus(campusId){
   // console.log(campusId, 'campusId in delete campus called ')
   axios.delete(`/api/campuses/${campusId}/delete`)
   .then(res => res.data)
-  .then(data => console.log(data))
+  // .then(data => console.log(data))
 }
 
 createCampus(payload){
   axios.post( '/api/campuses/add', payload)
   .then(res => res.data)
-  .then(data => console.log(data))
+  // .then(data => console.log(data))
 }
 
 editCampus(campusId, payload){
   axios.put(`/api/campuses/${campusId}/edit`, payload)
   .then(res => res.data)
-  .then(data => console.log(data))
+  // .then(data => console.log(data))
 }
 
 
@@ -68,23 +69,26 @@ editCampus(campusId, payload){
           campuses={this.state.campuses}
           setCampus = {this.changeSelected}
         />
-        <div className= "edit-campus-container">
-        <h1> new stuff will go here </h1>
+        { this.state.selectedCampus == 0 &&
         <EditCampus
         campuses={this.state.campuses}
         deleteCampus={this.deleteCampus}
         createCampus={this.createCampus}
         editCampus={this.editCampus}
          />
-         </div>
-      </div>
-
+        }
+        {this.state.selectedCampus !== 0 &&
+        <SingleCampus
+          students ={this.state.visibleStudents}
+          campuses = {this.state.campuses}
+          campusId = {this.state.selectedCampus}
+        />
+        }
+    </div>
 
       <div className= "student-list-display">
         <StudentList students = {this.state.visibleStudents} />
-
       </div>
-
     </div>
   )
  }

@@ -12,21 +12,20 @@
 }
 
 
-/* wrapper around the addd campus component */
-.add-campus-display {
-background-color: green;
-}
 
 img {
   width: 75px;
   height: 75px;
 }
 
-.edit-campus-container{
-  background-color: orange;
+.edit-campus-display {
+  background-color: lightseagreen;
   flex: 2;
-  margin: 2em;
+}
 
+/* replaces edit-campus display  */
+.single-campus-display {
+  flex: 2
 }
 
 
