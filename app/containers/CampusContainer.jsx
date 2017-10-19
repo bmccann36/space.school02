@@ -47,6 +47,11 @@ this.setState( {visibleStudents: list} )
           campuses={this.state.campuses}
           setCampus = {this.changeSelected}
         />
+        <div className= "edit-campus-container">
+        <h1> new stuff will go here </h1>
+        <AddCampus />
+         <h1> new stuff will go here </h1>
+         </div>
       </div>
 
 
@@ -54,13 +59,6 @@ this.setState( {visibleStudents: list} )
         <StudentList students = {this.state.visibleStudents} />
 
       </div>
-
-
-      {/* <div className="add-campus-display">
-        <p> hello </p>
-          <AddCampus />
-        <p> hello </p>
-      </div> */}
 
     </div>
   )

@@ -12,8 +12,8 @@ export default function Campuses(props){
     {props.campuses.map((campus) => {
       return (
         <div className="campus-icon" key={campus.id} onClick= {()=> props.setCampus(campus.id)} >
-        <h1> {campus.name}  </h1>
-          <img src="https://pbs.twimg.com/profile_images/665505233859174400/kA0u43JI.jpg"></img>
+        <p> {campus.name}  </p>
+          <img        src="https://pbs.twimg.com/profile_images/665505233859174400/kA0u43JI.jpg"></img>
        </div>
       )
     })}

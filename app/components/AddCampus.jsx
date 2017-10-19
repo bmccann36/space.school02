@@ -8,13 +8,16 @@ export default class AddCampus extends Component {
   }
 
 
-
 render() {
     return (
       <div>
-        <form onSubmit = {'none'} >
+        <fieldset>
+        <form onSubmit = {()=> console.log('click')} >
         <input placeholder= "Campus Name" type="text" name="name" value="Default Campus" />
+        <button type="submit" className="btn btn-success">
+         submit </button>
         </form>
+        </fieldset>
     </div>
     )
   }
@@ -26,8 +29,6 @@ render() {
 // <fieldset>
 
 
-//   <button type="submit" className="btn btn-success">
-//     submit </button>
 //   </fieldset>
 // {/*  */}
 // </div>
