@@ -44,6 +44,7 @@ router.post('/add',  (req, res, next) => {
 
 // PUT update campus info for one
 router.put('/:campusId/edit', (req, res, next) => {
+  console.log(req.body)
   Campus.findById(req.params.campusId)
   .then(campus => {
     campus.update(req.body)

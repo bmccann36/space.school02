@@ -30636,6 +30636,15 @@ var CampusContainer = function (_Component) {
       });
     }
   }, {
+    key: 'editCampus',
+    value: function editCampus(campusId, payload) {
+      _axios2.default.put('/api/campuses/' + campusId + '/edit', payload).then(function (res) {
+        return res.data;
+      }).then(function (data) {
+        return console.log(data);
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
@@ -30659,7 +30668,8 @@ var CampusContainer = function (_Component) {
             _react2.default.createElement(_EditCampus2.default, {
               campuses: this.state.campuses,
               deleteCampus: this.deleteCampus,
-              createCampus: this.createCampus
+              createCampus: this.createCampus,
+              editCampus: this.editCampus
             })
           )
         ),
@@ -32166,6 +32176,7 @@ var EditCampus = function (_Component) {
 
     _this.handleSubmitDelete = _this.handleSubmitDelete.bind(_this);
     _this.handleSubmitCreate = _this.handleSubmitCreate.bind(_this);
+    _this.handleSubmitEdit = _this.handleSubmitEdit.bind(_this);
     return _this;
   }
 
@@ -32184,6 +32195,18 @@ var EditCampus = function (_Component) {
         image: 'default image'
       };
       this.props.createCampus(payload);
+    }
+  }, {
+    key: 'handleSubmitEdit',
+    value: function handleSubmitEdit(event) {
+      event.preventDefault();
+      var campusId = event.target.campusId.value;
+      var campusName = event.target.campusName.value;
+      var campusImage = event.target.campusImage.value;
+      var payload = {};
+      if (campusName) payload.name = campusName;
+      if (campusImage) payload.image = campusImage;
+      this.props.editCampus(campusId, payload);
     }
   }, {
     key: 'render',
@@ -32229,6 +32252,27 @@ var EditCampus = function (_Component) {
           'form',
           { onSubmit: this.handleSubmitCreate },
           _react2.default.createElement('input', { placeholder: 'Campus Name', type: 'text', name: 'newCampus' }),
+          _react2.default.createElement(
+            'button',
+            { type: 'submit' },
+            ' submit'
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          ' edit campus '
+        ),
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSubmitEdit },
+          _react2.default.createElement(
+            'select',
+            { type: 'text', name: 'campusId', placeholder: 'pick campus' },
+            campuses
+          ),
+          _react2.default.createElement('input', { placeholder: 'name', type: 'text', name: 'campusName' }),
+          _react2.default.createElement('input', { placeholder: 'image', type: 'text', name: 'campusImage' }),
           _react2.default.createElement(
             'button',
             { type: 'submit' },

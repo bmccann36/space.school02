@@ -7,6 +7,7 @@ export default class EditCampus extends Component {
   super(props)
   this.handleSubmitDelete = this.handleSubmitDelete.bind(this)
   this.handleSubmitCreate = this.handleSubmitCreate.bind(this)
+  this.handleSubmitEdit = this.handleSubmitEdit.bind(this)
   }
 
   handleSubmitDelete(event){
@@ -21,6 +22,17 @@ export default class EditCampus extends Component {
      image: 'default image'
    }
     this.props.createCampus(payload)
+  }
+
+  handleSubmitEdit(event){
+    event.preventDefault()
+    const campusId = event.target.campusId.value
+   const campusName = event.target.campusName.value
+   const campusImage = event.target.campusImage.value
+   const payload = {}
+   if(campusName) payload.name = campusName
+   if(campusImage) payload.image = campusImage
+    this.props.editCampus(campusId, payload)
   }
 
 
@@ -38,11 +50,23 @@ render() {
           </select>
          <button type="submit"> submit</button>
         </form>
+
           <p> create campus </p>
         <form onSubmit = {this.handleSubmitCreate}>
             <input placeholder= "Campus Name" type="text" name="newCampus" />
              <button type="submit"> submit</button>
         </form>
+
+        <p> edit campus </p>
+        <form onSubmit= {this.handleSubmitEdit}>
+          <select type="text" name="campusId" placeholder= "pick campus">
+            {campuses}
+          </select>
+          <input placeholder= "name" type="text" name="campusName"/>
+          <input placeholder= "image" type="text" name="campusImage"/>
+          <button type="submit"> submit</button>
+        </form>
+
       </div>
     )
   }

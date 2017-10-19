@@ -53,6 +53,13 @@ createCampus(payload){
   .then(data => console.log(data))
 }
 
+editCampus(campusId, payload){
+  axios.put(`/api/campuses/${campusId}/edit`, payload)
+  .then(res => res.data)
+  .then(data => console.log(data))
+}
+
+
   render(){
   return (
     <div>
@@ -67,6 +74,7 @@ createCampus(payload){
         campuses={this.state.campuses}
         deleteCampus={this.deleteCampus}
         createCampus={this.createCampus}
+        editCampus={this.editCampus}
          />
          </div>
       </div>
