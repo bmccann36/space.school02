@@ -19,13 +19,14 @@ export default class EditCampus extends Component {
     event.preventDefault()
    const payload = {
      name: event.target.newCampus.value,
-     image: 'default image'
+     image: 'http://i.imgur.com/6jr3M0j.png'
    }
     this.props.createCampus(payload)
   }
 
   handleSubmitEdit(event){
     event.preventDefault()
+
     const campusId = event.target.campusId.value
    const campusName = event.target.campusName.value
    const campusImage = event.target.campusImage.value

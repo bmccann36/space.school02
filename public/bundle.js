@@ -30565,6 +30565,8 @@ var _SingleCampus2 = _interopRequireDefault(_SingleCampus);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -30586,6 +30588,8 @@ var CampusContainer = function (_Component) {
     };
     _this.changeSelected = _this.changeSelected.bind(_this);
     _this.deleteCampus = _this.deleteCampus.bind(_this);
+    _this.createCampus = _this.createCampus.bind(_this);
+    _this.editCampus = _this.editCampus.bind(_this);
     return _this;
   }
 
@@ -30624,27 +30628,44 @@ var CampusContainer = function (_Component) {
   }, {
     key: 'deleteCampus',
     value: function deleteCampus(campusId) {
-      // console.log(campusId, 'campusId in delete campus called ')
+      var _this4 = this;
+
+      console.log(campusId, 'campus id');
       _axios2.default.delete('/api/campuses/' + campusId + '/delete').then(function (res) {
         return res.data;
+      }).then(function (data) {
+        var updated = _this4.state.campuses.filter(function (campus) {
+          return campus.id !== +campusId;
+        });
+        _this4.setState({ campuses: updated });
       });
-      // .then(data => console.log(data))
     }
   }, {
     key: 'createCampus',
     value: function createCampus(payload) {
+      var _this5 = this;
+
       _axios2.default.post('/api/campuses/add', payload).then(function (res) {
         return res.data;
+      }).then(function (data) {
+        _this5.setState({ campuses: [].concat(_toConsumableArray(_this5.state.campuses), [data]) });
       });
-      // .then(data => console.log(data))
     }
   }, {
     key: 'editCampus',
     value: function editCampus(campusId, payload) {
+      var _this6 = this;
+
       _axios2.default.put('/api/campuses/' + campusId + '/edit', payload).then(function (res) {
         return res.data;
+      }).then(function (data) {
+        console.log(data);
+        var newCampuses = _this6.state.campuses.map(function (campus) {
+          if (campus.id == campusId) return data;else return campus;
+        });
+        console.log(newCampuses);
+        _this6.setState({ campuses: newCampuses });
       });
-      // .then(data => console.log(data))
     }
   }, {
     key: 'render',
@@ -30772,8 +30793,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 function Campuses(props) {
-  // console.log(props)
-  // passing setCampus in here instead of using router so that we get a page refresh Link to is no longer needed I think
+
   return _react2.default.createElement(
     "div",
     { className: "campuses-display" },
@@ -30790,7 +30810,7 @@ function Campuses(props) {
           campus.name,
           "  "
         ),
-        _react2.default.createElement("img", { src: "https://pbs.twimg.com/profile_images/665505233859174400/kA0u43JI.jpg" })
+        _react2.default.createElement("img", { src: campus.image || "http://i.imgur.com/6jr3M0j.png" })
       );
     })
   );
@@ -32185,7 +32205,7 @@ var EditCampus = function (_Component) {
       event.preventDefault();
       var payload = {
         name: event.target.newCampus.value,
-        image: 'default image'
+        image: 'http://i.imgur.com/6jr3M0j.png'
       };
       this.props.createCampus(payload);
     }
@@ -32193,6 +32213,7 @@ var EditCampus = function (_Component) {
     key: 'handleSubmitEdit',
     value: function handleSubmitEdit(event) {
       event.preventDefault();
+
       var campusId = event.target.campusId.value;
       var campusName = event.target.campusName.value;
       var campusImage = event.target.campusImage.value;
@@ -32350,14 +32371,22 @@ var SingleCampus = function (_Component) {
       var _this3 = this;
 
       // console.log(this.props)
-      var thisCampus = this.props.campuses.filter(function (campus) {
+      var campus = this.props.campuses.filter(function (campus) {
         return campus.id == _this3.props.campusId;
-      });
-      console.log(thisCampus, "this campus");
+      })[0];
+
+      console.log(campus, "this campus");
       var students = this.props.students;
       return _react2.default.createElement(
         'div',
         { className: 'single-campus-display' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          ' ',
+          campus.name,
+          ' '
+        ),
         students.map(function (student) {
           return _react2.default.createElement(
             'div',

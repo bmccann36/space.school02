@@ -17,6 +17,8 @@ export default class CampusContainer extends Component {
       }
 this.changeSelected = this.changeSelected.bind(this)
 this.deleteCampus = this.deleteCampus.bind(this)
+this.createCampus = this.createCampus.bind(this)
+this.editCampus = this.editCampus.bind(this)
 }
 
 componentDidMount(){
@@ -42,22 +44,39 @@ this.setState( {selectedCampus: campusId})
 }
 
 deleteCampus(campusId){
-  // console.log(campusId, 'campusId in delete campus called ')
+console.log(campusId, 'campus id')
   axios.delete(`/api/campuses/${campusId}/delete`)
   .then(res => res.data)
-  // .then(data => console.log(data))
+  .then(data => {
+    const updated = this.state.campuses.filter(campus => {
+      return (campus.id !== +campusId) } )
+    this.setState({ campuses: updated })
+})
 }
+
 
 createCampus(payload){
   axios.post( '/api/campuses/add', payload)
   .then(res => res.data)
-  // .then(data => console.log(data))
+  .then(data => {
+   this.setState(
+    {campuses: [...this.state.campuses, data]})
+  })
+
 }
 
 editCampus(campusId, payload){
   axios.put(`/api/campuses/${campusId}/edit`, payload)
   .then(res => res.data)
-  // .then(data => console.log(data))
+  .then(data => {
+    console.log(data)
+  const newCampuses = this.state.campuses.map( campus => {
+    if (campus.id == campusId) return data
+    else return campus
+  })
+  console.log(newCampuses)
+  this.setState({ campuses: newCampuses})
+})
 }
 
 
