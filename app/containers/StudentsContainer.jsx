@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 
 import StudentTable from '../components/StudentTable'
@@ -54,9 +55,10 @@ export default class StudentsContainer extends Component {
 
   render() {
       return (
-        <div>
+
+        <div className= "students-container" >
           <button onClick = { this.handleClick}> click to edit </button>
-            <div className= "students-container" >
+            <div >
                  <StudentTable students={this.state.visibleStudents}
                  deleteStudent={this.deleteStudent}
                   />
@@ -65,6 +67,7 @@ export default class StudentsContainer extends Component {
               addStudent={this.addStudent}
               /> }
             </div>
+
         </div>
         )
         }

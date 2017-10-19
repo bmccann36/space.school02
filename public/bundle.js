@@ -30630,7 +30630,6 @@ var CampusContainer = function (_Component) {
     value: function deleteCampus(campusId) {
       var _this4 = this;
 
-      console.log(campusId, 'campus id');
       _axios2.default.delete('/api/campuses/' + campusId + '/delete').then(function (res) {
         return res.data;
       }).then(function (data) {
@@ -31946,6 +31945,10 @@ var _CampusContainer = __webpack_require__(291);
 
 var _CampusContainer2 = _interopRequireDefault(_CampusContainer);
 
+var _StudentFlex = __webpack_require__(320);
+
+var _StudentFlex2 = _interopRequireDefault(_StudentFlex);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31956,9 +31959,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // make an axios request for all students
 
 // import Campuses from '../components/Campuses'
-
-
-// import StudentList from '../components/StudentList'
 
 
 var AppContainer = function (_Component) {
@@ -31984,7 +31984,7 @@ var AppContainer = function (_Component) {
             'div',
             null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', component: _StudentsContainer2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/students/:studentId', component: _StudentsContainer2.default })
           )
         )
       );
@@ -32032,6 +32032,8 @@ var _react2 = _interopRequireDefault(_react);
 var _axios = __webpack_require__(42);
 
 var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRouterDom = __webpack_require__(40);
 
 var _StudentTable = __webpack_require__(313);
 
@@ -32113,7 +32115,7 @@ var StudentsContainer = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'students-container' },
         _react2.default.createElement(
           'button',
           { onClick: this.handleClick },
@@ -32121,7 +32123,7 @@ var StudentsContainer = function (_Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'students-container' },
+          null,
           _react2.default.createElement(_StudentTable2.default, { students: this.state.visibleStudents,
             deleteStudent: this.deleteStudent
           }),
@@ -32408,6 +32410,60 @@ var SingleCampus = function (_Component) {
 }(_react.Component);
 
 exports.default = SingleCampus;
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var StudentFlex = function (_Component) {
+  _inherits(StudentFlex, _Component);
+
+  function StudentFlex(props) {
+    _classCallCheck(this, StudentFlex);
+
+    return _possibleConstructorReturn(this, (StudentFlex.__proto__ || Object.getPrototypeOf(StudentFlex)).call(this, props));
+  }
+
+  _createClass(StudentFlex, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { className: "student-flex-display" },
+        _react2.default.createElement(
+          "h1",
+          null,
+          " you are my sunshine "
+        )
+      );
+    }
+  }]);
+
+  return StudentFlex;
+}(_react.Component);
+
+exports.default = StudentFlex;
 
 /***/ })
 /******/ ]);

@@ -42,11 +42,10 @@ img {
   background-color: rebeccapurple;
   margin: 1em;
 }
-/* .student-list-container {
-  flex: 2;
-  background-color: grey;
-  margin: 1em;
-} */
+.student-flex-display {
+  background-color: green;
+  -moz-text-decoration-color: orange;
+}
 
 /* just the student table  */
 .students-table {

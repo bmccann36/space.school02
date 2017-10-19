@@ -7,7 +7,7 @@ import StudentsContainer from './StudentsContainer'
 import Nav from '../components/Nav'
 // import Campuses from '../components/Campuses'
 import CampusContainer from './CampusContainer'
-// import StudentList from '../components/StudentList'
+import StudentFlex from '../components/StudentFlex'
 
 
 export default class AppContainer extends Component {
@@ -21,10 +21,14 @@ export default class AppContainer extends Component {
       <div >
       <Nav />
         <div >
-          <Route exact path= "/" component= {CampusContainer} />
 
-          <Route exact path="/students" component={StudentsContainer} />
+          <Route exact path= "/" component= {CampusContainer} />
+          <Route path = '/students/:studentId' component = {StudentsContainer} />
+
+            {/* <Route exact path="/students" component={StudentsContainer} /> */}
+
         </div>
+
       </div>
      </BrowserRouter>
 

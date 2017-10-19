@@ -44,7 +44,6 @@ this.setState( {selectedCampus: campusId})
 }
 
 deleteCampus(campusId){
-console.log(campusId, 'campus id')
   axios.delete(`/api/campuses/${campusId}/delete`)
   .then(res => res.data)
   .then(data => {
