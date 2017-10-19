@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import StudentList from '../components/StudentList'
 import Campuses from '../components/Campuses'
-import AddCampus from '../components/AddCampus'
+import EditCampus from '../components/EditCampus'
 
 
 export default class CampusContainer extends Component {
@@ -16,6 +16,7 @@ export default class CampusContainer extends Component {
       allStudents: []
       }
 this.changeSelected = this.changeSelected.bind(this)
+this.deleteCampus = this.deleteCampus.bind(this)
 }
 
 componentDidMount(){
@@ -39,6 +40,19 @@ this.setState( {visibleStudents: list} )
 })
 }
 
+deleteCampus(campusId){
+  // console.log(campusId, 'campusId in delete campus called ')
+  axios.delete(`/api/campuses/${campusId}/delete`)
+  .then(res => res.data)
+  .then(data => console.log(data))
+}
+
+createCampus(payload){
+  axios.post( '/api/campuses/add', payload)
+  .then(res => res.data)
+  .then(data => console.log(data))
+}
+
   render(){
   return (
     <div>
@@ -49,8 +63,11 @@ this.setState( {visibleStudents: list} )
         />
         <div className= "edit-campus-container">
         <h1> new stuff will go here </h1>
-        <AddCampus />
-         <h1> new stuff will go here </h1>
+        <EditCampus
+        campuses={this.state.campuses}
+        deleteCampus={this.deleteCampus}
+        createCampus={this.createCampus}
+         />
          </div>
       </div>
 

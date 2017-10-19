@@ -30,7 +30,6 @@ export default class AddPerson extends Component {
   }
 
   render() {
-    // console.log(this.props.campuses, 'in add person')
 const campusNames = this.state.campuses.map(campus => {
   return <option key={campus.id} value={campus.id} > {campus.name} </option>
 })
@@ -47,7 +46,7 @@ const campusNames = this.state.campuses.map(campus => {
                 <option>{1}</option>
                 {campusNames}
               </select>
-            <button type="submit" className="btn btn-success">
+            <button type="submit">
                 submit
               </button>
           </fieldset>
