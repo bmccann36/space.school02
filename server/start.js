@@ -4,6 +4,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {resolve} = require('path')
 
+const fillDb = require('./seed').fillDb
+
 const app = express()
 
 if (process.env.NODE_ENV !== 'production') {
@@ -37,9 +39,13 @@ if (module === require.main) {
   const PORT = 1337
 
   const db = require('../db')
-  db.sync()
+  db.sync({force:true})
+
+
   .then(() => {
     console.log('db synced')
+
+fillDb()
     app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
   });
 }

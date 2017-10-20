@@ -1,7 +1,6 @@
 const router = require('express').Router();
 module.exports = router;
 
-router.get('/', (req, res) => res.send({your: 'mom'}))
 
 // console.log('in routes')
 router.use('/campuses', require('./campuses'));
