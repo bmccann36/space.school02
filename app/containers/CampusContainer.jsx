@@ -55,6 +55,7 @@ deleteCampus(campusId){
 
 
 createCampus(payload){
+  console.log(payload, 'payload')
   axios.post( '/api/campuses/add', payload)
   .then(res => res.data)
   .then(data => {

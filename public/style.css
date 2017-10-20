@@ -13,8 +13,8 @@
 
 
 img {
-  width: 75px;
-  height: 75px;
+  max-width: 150px;
+  max-height:150px;
 }
 
 .edit-campus-display {
@@ -42,10 +42,21 @@ img {
   background-color: greenyellow;
   padding: 2em;
   margin: 4em;
-
 }
 
+ /* .students-table {
+  background-color: burlywood;
+  flex: 2;
+ } */
 
+.add-person {
+  background-color: royalblue;
+  width: 30em;
+}
+
+.single-student-display {
+  background-color: lightseagreen;
+}
 
 
 

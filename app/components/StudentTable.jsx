@@ -22,7 +22,9 @@ export default class StudentTable extends Component{
           <div key={student.id} >
             <tr>
               <Link to = {`/students/${student.id}`}> show info </Link>
-              <h1> {student.name} </h1>
+              <td> - - </td>
+              <td> {student.name} </td>
+              <td> - - </td>
               <td>
                 <button onClick={() => this.props.deleteStudent(student.id)}> delete entry </button>
               </td>
