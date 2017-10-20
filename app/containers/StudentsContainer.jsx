@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Link } from 'react-router-dom'
 
 import StudentTable from '../components/StudentTable'
 import AddPerson from '../components/AddPerson'
-import StudentIngo from '../components/StudentInfo'
+import StudentInfo from '../components/StudentInfo'
 
 export default class StudentsContainer extends Component {
   constructor() {
@@ -18,6 +18,7 @@ export default class StudentsContainer extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.deleteStudent = this.deleteStudent.bind(this)
     this.addStudent = this.addStudent.bind(this)
+    this.editStudent = this.editStudent.bind(this)
   }
 
 
@@ -59,6 +60,23 @@ export default class StudentsContainer extends Component {
     this.setState({ allStudents: currStuds })
   }
 
+  editStudent(name, payload) {
+    console.log('running')
+    const prevStuds = this.state.allStudents
+    const studentId = prevStuds.filter(student => {
+        return student.name == name})[0].id
+    axios.put(`api/students/${studentId}/edit`, payload)
+      .then(res => res.data)
+      .then(data => {
+        console.log(data)
+        const currStuds = prevStuds.map(student => {
+          if (student.id === studentId) return data
+          else return student
+        })
+        this.setState({ allStudents: currStuds })
+      })
+  }
+
   handleClick() {
     this.setState({ showForm: true })
   }
@@ -66,11 +84,11 @@ export default class StudentsContainer extends Component {
 
   render() {
     const display = this.state.selectedStudent || this.state.allStudents
-    console.log( display, 'display')
+    // console.log( display, 'display')
       return (
 
       <div className="students-container" >
-        <button onClick={this.handleClick}> click to add a student </button>
+        <button onClick={this.handleClick}> Add / Edit Student </button>
         <div >
           <StudentTable students={display}
             deleteStudent={this.deleteStudent}
@@ -78,8 +96,12 @@ export default class StudentsContainer extends Component {
           {this.state.showForm &&
             <AddPerson campuses={this.props.campuses}
               addStudent={this.addStudent}
+              editStudent={this.editStudent}
             />}
-          {display && <StudentInfo/>}
+          {display &&
+          <StudentInfo
+          student={this.state.selectedStudent}
+          />}
         </div>
 
       </div>
@@ -87,13 +109,3 @@ export default class StudentsContainer extends Component {
   }
 }
 
-
-        // .then(
-        //   axios.get('/api/students')
-        //   .then(res => res.data)
-        //   .then(students => {
-        //     this.setState({allStudents: students})
-        //     this.forceUpdate()
-        //     console.log(this.state.allStudents)
-        //   })
-      // )

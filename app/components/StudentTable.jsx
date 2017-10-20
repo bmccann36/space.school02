@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
+
 
 export default class StudentTable extends Component{
   constructor(props){
@@ -17,11 +19,10 @@ export default class StudentTable extends Component{
     if (this.props.students) {
       students = this.props.students.map((student => {
         return (
-          <div key={student.id}>
+          <div key={student.id} >
             <tr>
-              <td> {student.name} </td>
-              <td> {student.email} </td>
-              <td> {student.gpa} </td>
+              <Link to = {`/students/${student.id}`}> show info </Link>
+              <h1> {student.name} </h1>
               <td>
                 <button onClick={() => this.props.deleteStudent(student.id)}> delete entry </button>
               </td>

@@ -18,7 +18,13 @@ export default class AddPerson extends Component {
       gpa: event.target.gpa.value,
       campusId: event.target.campus.value
     }
-    this.props.addStudent(payload)
+    let isEntry = true
+    for(var key in payload){
+      if(!payload[key].length) isEntry=false
+    }
+    console.log(isEntry)
+    if (isEntry) this.props.addStudent(payload)
+    else this.props.editStudent(payload.name, payload)
   }
 
   componentDidMount(){
@@ -41,8 +47,8 @@ const campusNames = this.state.campuses.map(campus => {
             <input placeholder= "name" type="text" name="name"  />
             <input placeholder= "email" type= "text" name="email"  />
             <input placeholder= "gpa" type= "text" name="gpa"  />
-
               <select type="text" name="campus">
+              <option value="" > select campus </option>
                 {campusNames}
               </select>
             <button type="submit">

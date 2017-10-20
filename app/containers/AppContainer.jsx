@@ -7,7 +7,7 @@ import StudentsContainer from './StudentsContainer'
 import Nav from '../components/Nav'
 // import Campuses from '../components/Campuses'
 import CampusContainer from './CampusContainer'
-import StudentFlex from '../components/StudentFlex'
+
 
 
 export default class AppContainer extends Component {
