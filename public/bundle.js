@@ -32011,12 +32011,6 @@ var _axios = __webpack_require__(26);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reactRouterDom = __webpack_require__(25);
-
-var _StudentList = __webpack_require__(315);
-
-var _StudentList2 = _interopRequireDefault(_StudentList);
-
 var _Campuses = __webpack_require__(316);
 
 var _Campuses2 = _interopRequireDefault(_Campuses);
@@ -32048,7 +32042,8 @@ var CampusContainer = function (_Component) {
     // console.log(this.props.match.params, 'match params')
     var _this = _possibleConstructorReturn(this, (CampusContainer.__proto__ || Object.getPrototypeOf(CampusContainer)).call(this, props));
 
-    _this.state = { campuses: [],
+    _this.state = {
+      campuses: [],
       selectedCampusId: +_this.props.match.params.campusId || 0,
       visibleStudents: [],
       allStudents: []
@@ -32159,11 +32154,6 @@ var CampusContainer = function (_Component) {
             campuses: this.state.campuses,
             campusId: this.state.selectedCampusId // lose this one **********
           })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'student-list-display' },
-          _react2.default.createElement(_StudentList2.default, { students: this.state.visibleStudents })
         )
       );
     }
@@ -32175,71 +32165,7 @@ var CampusContainer = function (_Component) {
 exports.default = CampusContainer;
 
 /***/ }),
-/* 315 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(4);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var StudentList = function (_Component) {
-  _inherits(StudentList, _Component);
-
-  function StudentList(props) {
-    _classCallCheck(this, StudentList);
-
-    return _possibleConstructorReturn(this, (StudentList.__proto__ || Object.getPrototypeOf(StudentList)).call(this, props));
-  }
-
-  _createClass(StudentList, [{
-    key: "render",
-    value: function render() {
-      // console.log(this.props.campuses)
-      var students = this.props.students;
-      return _react2.default.createElement(
-        "div",
-        { className: "student-list" },
-        _react2.default.createElement(
-          "h1",
-          null,
-          " student list component "
-        ),
-        students.map(function (student) {
-          return _react2.default.createElement(
-            "p",
-            null,
-            " ",
-            student.name,
-            " "
-          );
-        })
-      );
-    }
-  }]);
-
-  return StudentList;
-}(_react.Component);
-
-exports.default = StudentList;
-
-/***/ }),
+/* 315 */,
 /* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
