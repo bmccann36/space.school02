@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 
 
 export default class StudentInfo extends Component {
@@ -19,7 +20,9 @@ export default class StudentInfo extends Component {
       <div className="single-student-display">
         {student ?
         <div>
-        <h1> Campus : {campus.name} </h1>
+        <Link to = {`/campus/${student.campusId}`}>
+        <h1 > Campus : {campus.name} </h1>
+        </Link>
         <h1> Student : {student.name} </h1>
         <h1> Gpa : {student.gpa} </h1>
         </div>

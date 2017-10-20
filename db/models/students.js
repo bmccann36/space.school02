@@ -15,4 +15,7 @@ const Student = db.define('student', {
   }
 });
 
+
+
+
 module.exports = Student

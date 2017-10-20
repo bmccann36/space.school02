@@ -8,10 +8,11 @@ import EditCampus from '../components/EditCampus'
 import SingleCampus from '../components/SingleCampus'
 
 export default class CampusContainer extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    // console.log(this.props.match.params, 'match params')
     this.state = { campuses: [],
-      selectedCampus: 0,
+      selectedCampusId: +this.props.match.params.campusId || 0 ,
       visibleStudents: [],
       allStudents: []
       }
@@ -39,7 +40,7 @@ axios.get(`/api/campuses/${campusId}/students`)
 .then(res => res.data)
 .then(list => {
 this.setState( {visibleStudents: list} )
-this.setState( {selectedCampus: campusId})
+this.setState( {selectedCampusId: campusId})
 })
 }
 
@@ -81,6 +82,7 @@ editCampus(campusId, payload){
 
 
   render(){
+    console.log(this.state.selectedCampusId)
   return (
     <div>
       <div className= "campus-container">
@@ -88,7 +90,7 @@ editCampus(campusId, payload){
           campuses={this.state.campuses}
           setCampus = {this.changeSelected}
         />
-        { this.state.selectedCampus == 0 &&
+        { this.state.selectedCampusId == 0 &&
         <EditCampus
         campuses={this.state.campuses}
         deleteCampus={this.deleteCampus}
@@ -96,11 +98,11 @@ editCampus(campusId, payload){
         editCampus={this.editCampus}
          />
         }
-        {this.state.selectedCampus !== 0 &&
+        {this.state.selectedCampusId !== 0 &&
         <SingleCampus
-          students ={this.state.visibleStudents}
+          students ={this.state.allStudents}
           campuses = {this.state.campuses}
-          campusId = {this.state.selectedCampus}
+          campusId = {this.state.selectedCampusId} // lose this one **********
         />
         }
     </div>

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 
 export default class SingleCampus extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       campus: {}
     }
@@ -22,20 +22,29 @@ export default class SingleCampus extends Component {
     // console.log(this.props)
    const campus = this.props.campuses.filter( campus => {
       return campus.id == this.props.campusId})[0]
+    const students = this.props.students.filter( student => {
+      return student.campusId == this.props.campusId
+    })
 
-    console.log(campus, "this campus")
-    const students = this.props.students
+    const display = students.map(student => {
+      return (
+        <div key={student.id}>
+        <Link to = {`/students/${student.id}`}> {student.name} </Link>
+        </div>
+      )})
+        console.log(campus)
   return (
+
     <div className= "single-campus-display">
-      <h1> {campus.name} </h1>
-      {students.map((student) => {
-        return (
-          <div key={student.id}>
-          <Link to = "/students"> {student.name} </Link>
-          </div>
-        )
-      })}
-    </div>
+      { campus &&
+      <div>
+     <h1> {campus.name} </h1>
+     {display}
+     </div>
+      }
+     </div>
+
   )
-}
+
+  }
 }

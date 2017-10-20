@@ -30594,6 +30594,7 @@ var AppContainer = function (_Component) {
             'div',
             null,
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _CampusContainer2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/campus/:campusId', component: _CampusContainer2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/students/:studentId', component: _StudentsContainer2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/students', component: _StudentsContainer2.default })
           )
@@ -31915,6 +31916,8 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(25);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31933,7 +31936,7 @@ var StudentInfo = function (_Component) {
   }
 
   _createClass(StudentInfo, [{
-    key: "render",
+    key: 'render',
     value: function render() {
       var student = false;
       var campus = false;
@@ -31943,36 +31946,40 @@ var StudentInfo = function (_Component) {
         console.log(student, campus);
       }
       return _react2.default.createElement(
-        "div",
-        { className: "single-student-display" },
+        'div',
+        { className: 'single-student-display' },
         student ? _react2.default.createElement(
-          "div",
+          'div',
           null,
           _react2.default.createElement(
-            "h1",
-            null,
-            " Campus : ",
-            campus.name,
-            " "
+            _reactRouterDom.Link,
+            { to: '/campus/' + student.campusId },
+            _react2.default.createElement(
+              'h1',
+              null,
+              ' Campus : ',
+              campus.name,
+              ' '
+            )
           ),
           _react2.default.createElement(
-            "h1",
+            'h1',
             null,
-            " Student : ",
+            ' Student : ',
             student.name,
-            " "
+            ' '
           ),
           _react2.default.createElement(
-            "h1",
+            'h1',
             null,
-            " Gpa : ",
+            ' Gpa : ',
             student.gpa,
-            " "
+            ' '
           )
         ) : _react2.default.createElement(
-          "p",
+          'p',
           null,
-          " no data "
+          ' no data '
         )
       );
     }
@@ -32035,13 +32042,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CampusContainer = function (_Component) {
   _inherits(CampusContainer, _Component);
 
-  function CampusContainer() {
+  function CampusContainer(props) {
     _classCallCheck(this, CampusContainer);
 
-    var _this = _possibleConstructorReturn(this, (CampusContainer.__proto__ || Object.getPrototypeOf(CampusContainer)).call(this));
+    // console.log(this.props.match.params, 'match params')
+    var _this = _possibleConstructorReturn(this, (CampusContainer.__proto__ || Object.getPrototypeOf(CampusContainer)).call(this, props));
 
     _this.state = { campuses: [],
-      selectedCampus: 0,
+      selectedCampusId: +_this.props.match.params.campusId || 0,
       visibleStudents: [],
       allStudents: []
     };
@@ -32081,7 +32089,7 @@ var CampusContainer = function (_Component) {
         return res.data;
       }).then(function (list) {
         _this3.setState({ visibleStudents: list });
-        _this3.setState({ selectedCampus: campusId });
+        _this3.setState({ selectedCampusId: campusId });
       });
     }
   }, {
@@ -32129,6 +32137,7 @@ var CampusContainer = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state.selectedCampusId);
       return _react2.default.createElement(
         'div',
         null,
@@ -32139,16 +32148,16 @@ var CampusContainer = function (_Component) {
             campuses: this.state.campuses,
             setCampus: this.changeSelected
           }),
-          this.state.selectedCampus == 0 && _react2.default.createElement(_EditCampus2.default, {
+          this.state.selectedCampusId == 0 && _react2.default.createElement(_EditCampus2.default, {
             campuses: this.state.campuses,
             deleteCampus: this.deleteCampus,
             createCampus: this.createCampus,
             editCampus: this.editCampus
           }),
-          this.state.selectedCampus !== 0 && _react2.default.createElement(_SingleCampus2.default, {
-            students: this.state.visibleStudents,
+          this.state.selectedCampusId !== 0 && _react2.default.createElement(_SingleCampus2.default, {
+            students: this.state.allStudents,
             campuses: this.state.campuses,
-            campusId: this.state.selectedCampus
+            campusId: this.state.selectedCampusId // lose this one **********
           })
         ),
         _react2.default.createElement(
@@ -32469,10 +32478,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SingleCampus = function (_Component) {
   _inherits(SingleCampus, _Component);
 
-  function SingleCampus() {
+  function SingleCampus(props) {
     _classCallCheck(this, SingleCampus);
 
-    var _this = _possibleConstructorReturn(this, (SingleCampus.__proto__ || Object.getPrototypeOf(SingleCampus)).call(this));
+    var _this = _possibleConstructorReturn(this, (SingleCampus.__proto__ || Object.getPrototypeOf(SingleCampus)).call(this, props));
 
     _this.state = {
       campus: {}
@@ -32499,32 +32508,39 @@ var SingleCampus = function (_Component) {
       var campus = this.props.campuses.filter(function (campus) {
         return campus.id == _this3.props.campusId;
       })[0];
+      var students = this.props.students.filter(function (student) {
+        return student.campusId == _this3.props.campusId;
+      });
 
-      console.log(campus, "this campus");
-      var students = this.props.students;
+      var display = students.map(function (student) {
+        return _react2.default.createElement(
+          'div',
+          { key: student.id },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/students/' + student.id },
+            ' ',
+            student.name,
+            ' '
+          )
+        );
+      });
+      console.log(campus);
       return _react2.default.createElement(
         'div',
         { className: 'single-campus-display' },
-        _react2.default.createElement(
-          'h1',
+        campus && _react2.default.createElement(
+          'div',
           null,
-          ' ',
-          campus.name,
-          ' '
-        ),
-        students.map(function (student) {
-          return _react2.default.createElement(
-            'div',
-            { key: student.id },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/students' },
-              ' ',
-              student.name,
-              ' '
-            )
-          );
-        })
+          _react2.default.createElement(
+            'h1',
+            null,
+            ' ',
+            campus.name,
+            ' '
+          ),
+          display
+        )
       );
     }
   }]);

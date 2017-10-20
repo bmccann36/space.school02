@@ -23,17 +23,16 @@ export default class AppContainer extends Component {
         <div >
 
           <Route exact path= "/" component= {CampusContainer} />
+
+          <Route path = '/campus/:campusId' component= {CampusContainer} />
           <Route path = '/students/:studentId' component = {StudentsContainer} />
 
            <Route exact path="/students" component={StudentsContainer} />
 
         </div>
-
       </div>
      </BrowserRouter>
-
     )
-
 }
 }
 
